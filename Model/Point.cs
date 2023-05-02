@@ -1,21 +1,23 @@
-﻿namespace _3D_graphics.Model
+﻿using System.Numerics;
+
+namespace _3D_graphics.Model
 {
     public class Point
     {
-        private float _x;
-        public float x { get { return _x; } set { _x = value; } }
+        Vector3 _coordinates;
 
-        private float _y;
-        public float y { get { return _y; } set { _y = value; } }
-
-        private float _z;
-        public float z { get { return _z; } set { _z = value; } }
+        public float x { get { return _coordinates.X; } }
+        public float y { get { return _coordinates.Y; } }
+        public float z { get { return _coordinates.Z; } }
 
         public Point(float x, float y, float z)
         {
-            this.x = x;
-            this.y = y;
-            this.z = z;
+            _coordinates = new Vector3(x, y, z);
+        }
+
+        public Point(Vector3 coordinates)
+        {
+            this._coordinates = coordinates;
         }
     }
 }
