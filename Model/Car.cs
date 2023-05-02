@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _3D_graphics.Model
+﻿namespace _3D_graphics.Model
 {
-    internal class Car
+    public class Car: RenderObject
     {
+        public Car(RenderObject model) : base(model) { }
     }
 }
