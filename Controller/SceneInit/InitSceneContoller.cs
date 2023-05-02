@@ -23,12 +23,12 @@ namespace _3D_graphics.Controller.SceneInit
 
         public Car GetCar()
         {
-            return Car(ParseFromResource(Models.Car, Color.Blue));
+            return new Car(ParseFromResource(Models.Car, Color.Blue));
         }
 
         private RenderObject ParseFromResource(byte[] resources, Color color)
         {
-            Stream stream = new MemoryStream(Models.Plane);
+            Stream stream = new MemoryStream(resources);
             IEnumerable<Mesh> mesh = _objParser.Parse(stream);
 
             if (mesh.Count() != 1)
