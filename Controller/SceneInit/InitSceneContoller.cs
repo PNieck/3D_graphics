@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _3D_graphics.Controller
+namespace _3D_graphics.Controller.SceneInit
 {
     internal class InitSceneContoller
     {
