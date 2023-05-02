@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using _3D_graphics.Model.Primitives;
 
 namespace _3D_graphics.Model
 {
