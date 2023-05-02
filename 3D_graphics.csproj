@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CjClutter.ObjLoader" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Controller\SceneInit\Models.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

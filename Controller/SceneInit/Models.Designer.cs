@@ -69,5 +69,15 @@ namespace _3D_graphics.Controller.SceneInit {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Plane {
+            get {
+                object obj = ResourceManager.GetObject("Plane", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
