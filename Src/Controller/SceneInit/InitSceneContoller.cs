@@ -15,6 +15,7 @@ namespace _3D_graphics.Controller.SceneInit
 
         public Scene GetScene()
         {
+            //var renderObjects = new List<RenderObject>();
             var renderObjects = GetBackgroundObjects();
             var car = GetCarObject();
             var lights = new List<ISourceOfLight>();
