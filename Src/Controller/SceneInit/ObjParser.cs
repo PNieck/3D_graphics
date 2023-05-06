@@ -6,12 +6,21 @@ namespace _3D_graphics.Controller.SceneInit
 {
     public class ObjParser
     {
-        IObjLoader _objLoader;
+        private readonly IObjLoader _objLoader;
 
         public ObjParser()
         {
             var objLoaderFactory = new ObjLoaderFactory();
             _objLoader = objLoaderFactory.Create();
+        }
+
+        public IEnumerable<Mesh> Parse(String filePath)
+        {
+            if (!File.Exists(filePath))
+                throw new FileNotFoundException();
+
+            Stream data = new FileStream(filePath, FileMode.Open);
+            return Parse(data);
         }
 
         public IEnumerable<Mesh> Parse(Stream data)
