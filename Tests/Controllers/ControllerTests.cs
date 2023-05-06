@@ -21,7 +21,7 @@ namespace Tests.Controllers
         [Fact]
         public void InitSceneControllerGetACarModels()
         {
-            RenderObject objects = _controller.GetCar();
+            RenderObject objects = _controller.GetCarObject();
         }
     }
 }
