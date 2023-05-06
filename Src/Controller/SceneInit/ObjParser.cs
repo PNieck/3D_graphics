@@ -6,14 +6,6 @@ namespace _3D_graphics.Controller.SceneInit
 {
     public class ObjParser
     {
-        private readonly IObjLoader _objLoader;
-
-        public ObjParser()
-        {
-            var objLoaderFactory = new ObjLoaderFactory();
-            _objLoader = objLoaderFactory.Create();
-        }
-
         public IEnumerable<Mesh> Parse(String filePath)
         {
             if (!File.Exists(filePath))
@@ -25,9 +17,12 @@ namespace _3D_graphics.Controller.SceneInit
 
         public IEnumerable<Mesh> Parse(Stream data)
         {
+            var objLoaderFactory = new ObjLoaderFactory();
+            var objLoader = objLoaderFactory.Create();
+
             LinkedList<Mesh> result = new LinkedList<Mesh>();
 
-            LoadResult loadedData = LoadData(data);
+            LoadResult loadedData = objLoader.Load(data);
 
             List<Vector3> coordinates = GetVerticesCoordinates(loadedData);
             List<Vector3> normals = GetVerticesNormals(loadedData);
@@ -57,8 +52,6 @@ namespace _3D_graphics.Controller.SceneInit
 
             return result;
         }
-
-        private LoadResult LoadData(Stream data) => _objLoader.Load(data);
 
         private List<Vector3> GetVerticesCoordinates(LoadResult loadedData)
         {

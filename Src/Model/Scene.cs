@@ -8,7 +8,7 @@ namespace _3D_graphics.Model
         public Car car { get; }
         List<ISourceOfLight> _lights;
 
-        public IReadOnlyList<RenderObject> renderObjects { get { return _renderObjects; } }
+        public IReadOnlyList<RenderObject> renderObjects { get { return _renderObjects.AsReadOnly(); } }
 
 
         public Scene(IEnumerable<RenderObject> renderObjects, IEnumerable<ISourceOfLight> lights, Car car)
