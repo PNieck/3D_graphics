@@ -26,7 +26,7 @@ namespace _3D_graphics.Controller.SceneInit
         {
             LinkedList<RenderObject> list = new LinkedList<RenderObject>();
 
-            RenderObject plane = ParseFromResources(Models.Plane, Color.Green);
+            RenderObject plane = ParseFromResources(Models.Plane, Color.Green, "Plane");
             plane.Scale(200);
             list.AddLast(plane);
 
@@ -35,12 +35,12 @@ namespace _3D_graphics.Controller.SceneInit
 
         public Car GetCarObject()
         {
-            Car car = new Car(ParseFromResources(Models.Car, Color.Blue));
+            Car car = new Car(ParseFromResources(Models.Car, Color.Blue, "Car"));
             car.Scale(100);
             return car;
         }
 
-        private RenderObject ParseFromResources(byte[] resources, Color color)
+        private RenderObject ParseFromResources(byte[] resources, Color color, string name)
         {
             Stream stream = new MemoryStream(resources);
             IEnumerable<Mesh> mesh = _objParser.Parse(stream);
@@ -48,7 +48,7 @@ namespace _3D_graphics.Controller.SceneInit
             if (mesh.Count() != 1)
                 throw new FileFormatException("Invalid obj file");
 
-            return new RenderObject(mesh.First(), color);
+            return new RenderObject(mesh.First(), color, name);
         }
     }
 }
