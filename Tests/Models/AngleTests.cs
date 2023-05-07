@@ -40,6 +40,16 @@ namespace Tests.Models
             Assert.Equal(angleInRadians, angle.Radians);
         }
 
+        [Theory]
+        [MemberData(nameof(AngleDataGenerator))]
+        public void UnaryMinusTests(float angleInDegrees, float angleInRadians)
+        {
+            Angle angle = Angle.FromDegrees(angleInDegrees);
+            angle = -angle;
+
+            Assert.Equal(-angleInDegrees, angle.Degrees);
+        }
+
 
         public static IEnumerable<object[]> AngleDataGenerator() =>
             new List<object[]>
