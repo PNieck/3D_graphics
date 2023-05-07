@@ -33,6 +33,9 @@ namespace _3D_graphics
                 case Keys.Right:
                     sceneController.TurnCarRight();
                     break;
+                case Keys.Left:
+                    sceneController.TurnCarLeft();
+                    break;
             }
         }
     }

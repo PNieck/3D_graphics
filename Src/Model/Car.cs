@@ -46,11 +46,18 @@ namespace _3D_graphics.Model
 
         public void GoBackward() => _coordinates -= _front;
 
-        public void TurnRight()
+        public void TurnRight() => TurnByAngle(-turningSpeed);
+
+        public void TurnLeft() => TurnByAngle(turningSpeed);
+
+
+        private void TurnByAngle(float angle)
         {
-            Quaternion q = Quaternion.CreateFromYawPitchRoll(0, 0, turningSpeed * 0.0174532925f);
-            _front = Vector3.Transform(_front, q);
-            mesh.RotateAroundZ(turningSpeed);
+            _front = Vector3.Transform(
+                _front,
+                Quaternion.CreateFromYawPitchRoll(0, 0, angle * 0.0174532925f)
+            );
+            mesh.RotateAroundZ(angle);
         }
     }
 }
