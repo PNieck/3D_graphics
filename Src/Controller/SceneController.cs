@@ -8,8 +8,6 @@ namespace _3D_graphics.Controller
 
     public class SceneController
     {
-        private const int CAR_SPEED = 5;
-        
         private Canvas screen;
         private Scene scene;
         private event SceneChangedHandler? sceneChanged;
@@ -44,13 +42,13 @@ namespace _3D_graphics.Controller
 
         public void MoveCarForeward()
         {
-            scene.car.GoForeward(CAR_SPEED);
+            scene.car.GoForeward();
             RequestRender();
         }
 
         public void MoveCarBackward()
         {
-            scene.car.GoBackward(CAR_SPEED);
+            scene.car.GoBackward();
             RequestRender();
         }
     }

@@ -6,9 +6,16 @@ namespace _3D_graphics.Model
 
     public class Car: RenderObject
     {
+        private const float speed = 5.0f;
+        
         private event CarHaveMoved? carHaveMoved;
 
-        public Car(RenderObject model) : base(model) { }
+        private Vector3 _front;
+
+        public Car(RenderObject model) : base(model)
+        {
+            _front = Vector3.UnitX;
+        }
 
         public void AddPositionObserver(CarHaveMoved handerMethod)
         {
@@ -20,16 +27,8 @@ namespace _3D_graphics.Model
             carHaveMoved -= handerMethod;
         }
 
-        public void GoForeward(float unit)
-        {
-            Vector3 translation = new Vector3(unit, 0, 0);
-            mesh.Move(translation);
-        }
+        public void GoForeward() => mesh.Move(speed * _front);
 
-        public void GoBackward(float unit)
-        {
-            Vector3 translation = new Vector3(-unit, 0, 0);
-            mesh.Move(translation);
-        }
+        public void GoBackward() => mesh.Move(-speed * _front);
     }
 }
