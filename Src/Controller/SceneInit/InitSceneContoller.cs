@@ -38,7 +38,7 @@ namespace _3D_graphics.Controller.SceneInit
         {
             Car car = new Car(ParseFromResources(Models.Car, Color.Blue, "Car"));
             car.Scale(100);
-            car.RotateAroundZ(180);
+            car.RotateAroundZ(Angle.FromDegrees(180));
             return car;
         }
 

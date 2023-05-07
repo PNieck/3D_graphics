@@ -24,7 +24,7 @@ namespace _3D_graphics.Model
 
         public void Scale(float ratio) => mesh.Scale(ratio);
 
-        public void RotateAroundZ(float degrees) => mesh.RotateAroundZ(degrees);
+        public void RotateAroundZ(Angle degrees) => mesh.RotateAroundZ(degrees);
 
         public override string ToString()
         {
