@@ -62,6 +62,7 @@ namespace _3D_graphics
             Controls.Add(toolStrip1);
             Name = "MainForm";
             Text = "Form1";
+            KeyDown += MainForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)CanvasWidget).EndInit();
             ResumeLayout(false);
             PerformLayout();

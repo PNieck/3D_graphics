@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace _3D_graphics.Model
 {
@@ -19,6 +18,12 @@ namespace _3D_graphics.Model
         public void RemoverPositionObserver(CarHaveMoved handerMethod)
         {
             carHaveMoved -= handerMethod;
+        }
+
+        public void GoForeward(float unit)
+        {
+            Vector3 translation = new Vector3(unit, 0, 0);
+            mesh.Move(translation);
         }
     }
 }

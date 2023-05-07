@@ -39,5 +39,11 @@ namespace _3D_graphics.Controller
             screen = renderController.RenderScene(scene);
             sceneChanged?.Invoke(screen);
         }
+
+        public void MoveCarForeward()
+        {
+            scene.car.GoForeward(5);
+            RequestRender();
+        }
     }
 }
