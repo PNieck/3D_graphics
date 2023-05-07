@@ -51,5 +51,11 @@ namespace _3D_graphics.Controller
             scene.car.GoBackward();
             RequestRender();
         }
+
+        public void TurnCarRight()
+        {
+            scene.car.TurnRight();
+            RequestRender();
+        }
     }
 }

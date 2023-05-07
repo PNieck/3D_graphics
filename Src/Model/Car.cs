@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using _3D_graphics.Model.Primitives;
+using System.Numerics;
 
 namespace _3D_graphics.Model
 {
@@ -6,15 +7,29 @@ namespace _3D_graphics.Model
 
     public class Car: RenderObject
     {
-        private const float speed = 5.0f;
+        private const float movementSpeed = 5.0f;
+        private const float turningSpeed = 5.0f;
         
         private event CarHaveMoved? carHaveMoved;
 
         private Vector3 _front;
+        private Vector3 _coordinates;
+
+        public override IEnumerable<Triangle> triangles
+        {
+            get
+            {
+                foreach (var triangle in base.triangles)
+                {
+                    yield return triangle.Move(_coordinates);
+                }
+            }
+        }
 
         public Car(RenderObject model) : base(model)
         {
-            _front = Vector3.UnitX;
+            _front = new Vector3(movementSpeed, 0, 0);
+            _coordinates = Vector3.Zero;
         }
 
         public void AddPositionObserver(CarHaveMoved handerMethod)
@@ -27,8 +42,15 @@ namespace _3D_graphics.Model
             carHaveMoved -= handerMethod;
         }
 
-        public void GoForeward() => mesh.Move(speed * _front);
+        public void GoForeward() => _coordinates += _front;
 
-        public void GoBackward() => mesh.Move(-speed * _front);
+        public void GoBackward() => _coordinates -= _front;
+
+        public void TurnRight()
+        {
+            Quaternion q = Quaternion.CreateFromYawPitchRoll(0, 0, turningSpeed * 0.0174532925f);
+            _front = Vector3.Transform(_front, q);
+            mesh.RotateAroundZ(turningSpeed);
+        }
     }
 }

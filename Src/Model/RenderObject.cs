@@ -8,7 +8,7 @@ namespace _3D_graphics.Model
         public Color color {get; set;}
         public string name { get;}
 
-        public IEnumerable<Triangle> triangles
+        public virtual IEnumerable<Triangle> triangles
         { get { return mesh.triangles; } }
         
 
