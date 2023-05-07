@@ -20,6 +20,11 @@ namespace _3D_graphics.Model.Primitives
             return new Triangle(v1.Tranform(matrix), v2.Tranform(matrix), v3.Tranform(matrix));
         }
 
+        public Triangle Move(Vector3 vector)
+        {
+            return new Triangle(v1.Move(vector), v2.Move(vector), v3.Move(vector));
+        }
+
         public override string ToString()
         {
             return $"Coordinates: {v1.coordinates}, {v2.coordinates}, {v3.coordinates}";

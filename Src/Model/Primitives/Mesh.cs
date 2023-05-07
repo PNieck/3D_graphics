@@ -31,6 +31,18 @@ namespace _3D_graphics.Model.Primitives
             CalculateTriangles();
         }
 
+        public void Move(Vector3 translation)
+        {
+            _objectMatrix *= Matrix4x4.CreateTranslation(translation);
+            CalculateTriangles();
+        }
+
+        public void RotateAroundZ(float degrees)
+        {
+            _objectMatrix *= Matrix4x4.CreateRotationZ(degrees * 0.0174532925f);
+            CalculateTriangles();
+        }
+
 
         private void CalculateTriangles()
         {

@@ -19,5 +19,24 @@ namespace _3D_graphics
         {
             screen.Apply(CanvasWidget);
         }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.KeyCode)
+            {
+                case Keys.Up:
+                    sceneController.MoveCarForeward();
+                    break;
+                case Keys.Down:
+                    sceneController.MoveCarBackward();
+                    break;
+                case Keys.Right:
+                    sceneController.TurnCarRight();
+                    break;
+                case Keys.Left:
+                    sceneController.TurnCarLeft();
+                    break;
+            }
+        }
     }
 }

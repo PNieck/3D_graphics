@@ -30,7 +30,16 @@ namespace _3D_graphics.Model.Primitives
         {
             return new Vertex(
                 Vector3.Transform(coordinates, matrix),
-                Vector3.TransformNormal(normal, matrix));
+                Vector3.TransformNormal(normal, matrix)
+            );
+        }
+
+        public Vertex Move(Vector3 vector)
+        {
+            return new Vertex(
+                coordinates + vector,
+                normal
+            );
         }
 
         public override string ToString()

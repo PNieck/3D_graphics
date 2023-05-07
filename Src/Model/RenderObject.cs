@@ -8,7 +8,7 @@ namespace _3D_graphics.Model
         public Color color {get; set;}
         public string name { get;}
 
-        public IEnumerable<Triangle> triangles
+        public virtual IEnumerable<Triangle> triangles
         { get { return mesh.triangles; } }
         
 
@@ -22,10 +22,9 @@ namespace _3D_graphics.Model
         public RenderObject(RenderObject renderObject):
             this(renderObject.mesh, renderObject.color, renderObject.name) { }
 
-        public void Scale(float ratio)
-        {
-            mesh.Scale(ratio);
-        }
+        public void Scale(float ratio) => mesh.Scale(ratio);
+
+        public void RotateAroundZ(float degrees) => mesh.RotateAroundZ(degrees);
 
         public override string ToString()
         {
