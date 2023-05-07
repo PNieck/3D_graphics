@@ -37,9 +37,9 @@ namespace _3D_graphics.Model.Primitives
             CalculateTriangles();
         }
 
-        public void RotateAroundZ(float degrees)
+        public void RotateAroundZ(Angle angle)
         {
-            _objectMatrix *= Matrix4x4.CreateRotationZ(degrees * 0.0174532925f);
+            _objectMatrix *= Matrix4x4.CreateRotationZ(angle.Radians);
             CalculateTriangles();
         }
 

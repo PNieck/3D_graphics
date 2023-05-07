@@ -8,7 +8,7 @@ namespace _3D_graphics.Model
     public class Car: RenderObject
     {
         private const float movementSpeed = 5.0f;
-        private const float turningSpeed = 5.0f;
+        private static readonly Angle turningSpeed = Angle.FromDegrees(5.0f);
         
         private event CarHaveMoved? carHaveMoved;
 
@@ -51,11 +51,11 @@ namespace _3D_graphics.Model
         public void TurnLeft() => TurnByAngle(turningSpeed);
 
 
-        private void TurnByAngle(float angle)
+        private void TurnByAngle(Angle angle)
         {
             _front = Vector3.Transform(
                 _front,
-                Quaternion.CreateFromYawPitchRoll(0, 0, angle * 0.0174532925f)
+                Quaternion.CreateFromYawPitchRoll(0, 0, angle.Radians)
             );
             mesh.RotateAroundZ(angle);
         }
