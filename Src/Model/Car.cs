@@ -25,5 +25,11 @@ namespace _3D_graphics.Model
             Vector3 translation = new Vector3(unit, 0, 0);
             mesh.Move(translation);
         }
+
+        public void GoBackward(float unit)
+        {
+            Vector3 translation = new Vector3(-unit, 0, 0);
+            mesh.Move(translation);
+        }
     }
 }

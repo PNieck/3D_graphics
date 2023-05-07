@@ -27,6 +27,9 @@ namespace _3D_graphics
                 case Keys.Up:
                     sceneController.MoveCarForeward();
                     break;
+                case Keys.Down:
+                    sceneController.MoveCarBackward();
+                    break;
             }
         }
     }
