@@ -8,13 +8,41 @@ namespace _3D_graphics.Controller.Rendering
     public class CameraController
     {
         private static readonly Vector3 DefaultInitCameraPosition = new Vector3(0, -700, 700);
-        
-        private CarFollowingCamera _carFollowingCamera;
+        private static readonly Vector3 DefaultCameraTarget = Vector3.Zero;
+        private static readonly Angle DefaultFOV = Angle.FromDegrees(100);
+
+        private ICamera _actualCamera;
+        private readonly Car _car;
+        private readonly int _width;
+        private readonly int _height;
 
         public CameraController(Car car, int width, int height) {
-            _carFollowingCamera = new CarFollowingCamera(DefaultInitCameraPosition, car, width, height, Angle.FromDegrees(100));
+            _car = car;
+            _width = width;
+            _height = height;
+
+            _actualCamera = GetCarFollowingCamera();
         }
 
-        public ICamera GetCamera() => _carFollowingCamera;
+        public ICamera GetCamera() => _actualCamera;
+
+        public void ChangeToCarFollowingCamera()
+        {
+            if (_actualCamera is not CarFollowingCamera)
+                _actualCamera = GetCarFollowingCamera();
+        }
+
+        public void ChangeToStaticCamera()
+        {
+            if (_actualCamera is not StaticCamera)
+                _actualCamera = GetStaticCamera();
+        }
+
+
+        private ICamera GetCarFollowingCamera()
+            => new CarFollowingCamera(DefaultInitCameraPosition, _car, _width, _height, DefaultFOV);
+
+        private ICamera GetStaticCamera()
+            => new StaticCamera(DefaultInitCameraPosition, DefaultCameraTarget, _width, _height, DefaultFOV);
     }
 }
