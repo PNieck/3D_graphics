@@ -22,7 +22,7 @@ namespace _3D_graphics
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            switch(e.KeyCode)
+            switch (e.KeyCode)
             {
                 case Keys.Up:
                     sceneController.MoveCarForeward();
@@ -37,6 +37,16 @@ namespace _3D_graphics
                     sceneController.TurnCarLeft();
                     break;
             }
+        }
+
+        private void StaticCameraButton_Click(object sender, EventArgs e)
+        {
+            sceneController.ChangeToStaticCamera();
+        }
+
+        private void CarFollowingCameraButton_Click(object sender, EventArgs e)
+        {
+            sceneController.ChangeToCarFollowingCamera();
         }
     }
 }

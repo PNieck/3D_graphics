@@ -63,5 +63,17 @@ namespace _3D_graphics.Controller
             scene.car.TurnLeft();
             RequestRender();
         }
+
+        public void ChangeToStaticCamera()
+        {
+            renderController.Camera.ChangeToStaticCamera();
+            RequestRender();
+        }
+
+        public void ChangeToCarFollowingCamera()
+        {
+            renderController.Camera.ChangeToCarFollowingCamera();
+            RequestRender();
+        }
     }
 }

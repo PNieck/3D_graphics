@@ -9,6 +9,8 @@ namespace _3D_graphics.Controller.Rendering
         private CameraController _cameraController;
         private BaseRenderingEngine _renderEngine;
 
+        public CameraController Camera { get { return _cameraController; } }
+
         public RenderController(int windowWidth, int windowHeight, Car car)
         {
             _cameraController = new CameraController(car, windowWidth, windowHeight);
@@ -20,5 +22,7 @@ namespace _3D_graphics.Controller.Rendering
             ICamera camera = _cameraController.GetCamera();
             return _renderEngine.RednerScene(scene, camera);
         }
+
+
     }
 }

@@ -30,26 +30,56 @@ namespace _3D_graphics
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             toolStrip1 = new ToolStrip();
+            CameraSellector = new ToolStripDropDownButton();
+            StaticCameraButton = new ToolStripMenuItem();
+            CarFollowingCameraButton = new ToolStripMenuItem();
             CanvasWidget = new PictureBox();
+            toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CanvasWidget).BeginInit();
             SuspendLayout();
             // 
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(20, 20);
+            toolStrip1.Items.AddRange(new ToolStripItem[] { CameraSellector });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(800, 25);
+            toolStrip1.Size = new Size(800, 27);
             toolStrip1.TabIndex = 0;
             toolStrip1.Text = "toolStrip1";
+            // 
+            // CameraSellector
+            // 
+            CameraSellector.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            CameraSellector.DropDownItems.AddRange(new ToolStripItem[] { StaticCameraButton, CarFollowingCameraButton });
+            CameraSellector.Image = (Image)resources.GetObject("CameraSellector.Image");
+            CameraSellector.ImageTransparentColor = Color.Magenta;
+            CameraSellector.Name = "CameraSellector";
+            CameraSellector.Size = new Size(74, 24);
+            CameraSellector.Text = "Camera";
+            // 
+            // StaticCameraButton
+            // 
+            StaticCameraButton.Name = "StaticCameraButton";
+            StaticCameraButton.Size = new Size(224, 26);
+            StaticCameraButton.Text = "Static camera";
+            StaticCameraButton.Click += StaticCameraButton_Click;
+            // 
+            // CarFollowingCameraButton
+            // 
+            CarFollowingCameraButton.Name = "CarFollowingCameraButton";
+            CarFollowingCameraButton.Size = new Size(224, 26);
+            CarFollowingCameraButton.Text = "Car following";
+            CarFollowingCameraButton.Click += CarFollowingCameraButton_Click;
             // 
             // CanvasWidget
             // 
             CanvasWidget.Dock = DockStyle.Fill;
-            CanvasWidget.Location = new Point(0, 25);
+            CanvasWidget.Location = new Point(0, 27);
             CanvasWidget.Name = "CanvasWidget";
-            CanvasWidget.Size = new Size(800, 425);
+            CanvasWidget.Size = new Size(800, 423);
             CanvasWidget.TabIndex = 1;
             CanvasWidget.TabStop = false;
             // 
@@ -63,6 +93,8 @@ namespace _3D_graphics
             Name = "MainForm";
             Text = "Form1";
             KeyDown += MainForm_KeyDown;
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)CanvasWidget).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -72,5 +104,8 @@ namespace _3D_graphics
 
         private ToolStrip toolStrip1;
         private PictureBox CanvasWidget;
+        private ToolStripDropDownButton CameraSellector;
+        private ToolStripMenuItem StaticCameraButton;
+        private ToolStripMenuItem CarFollowingCameraButton;
     }
 }
