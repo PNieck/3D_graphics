@@ -11,6 +11,6 @@ namespace _3D_graphics.Model.Camera
             car.AddPositionObserver(CarMovedHandle);
         }
 
-        private void CarMovedHandle(Vector3 coordinates) => ChangeTarget(coordinates);
+        private void CarMovedHandle(Vector3 coordinates, Vector3 vectorToFront) => ChangeTarget(coordinates);
     }
 }
