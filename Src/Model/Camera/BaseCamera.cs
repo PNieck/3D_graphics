@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace _3D_graphics.Model.Camera
 {
-    public class BaseCamera: ICamera
+    public abstract class BaseCamera: ICamera
     {
         private const float NEAR_PLANE = 10;
         private const float FAR_PLANE = 1000;
@@ -27,7 +27,7 @@ namespace _3D_graphics.Model.Camera
 
         public Matrix4x4 GetCameraMatrix() => _viewMatrix * _projectionMatrix;
 
-        public virtual void ChangeTarget(Vector3 newTarget)
+        protected void ChangeTarget(Vector3 newTarget)
         {
             _target = newTarget;
             _viewMatrix = CreateViewMatrix();

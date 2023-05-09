@@ -15,6 +15,8 @@ namespace _3D_graphics.Model
         private Vector3 _front;
         private Vector3 _coordinates;
 
+        public Vector3 Coordinates { get { return _coordinates; } }
+
         public override IEnumerable<Triangle> triangles
         {
             get
@@ -42,9 +44,17 @@ namespace _3D_graphics.Model
             carHaveMoved -= handerMethod;
         }
 
-        public void GoForeward() => _coordinates += _front;
+        public void GoForeward()
+        {
+            _coordinates += _front;
+            carHaveMoved?.Invoke(Coordinates);
+        }
 
-        public void GoBackward() => _coordinates -= _front;
+        public void GoBackward()
+        {
+            _coordinates -= _front;
+            carHaveMoved?.Invoke(Coordinates);
+        }
 
         public void TurnRight() => TurnByAngle(-turningSpeed);
 
