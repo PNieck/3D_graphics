@@ -7,20 +7,14 @@ namespace _3D_graphics.Controller.Rendering
 {
     public class CameraController
     {
-        private BaseCamera _baseCamera;
+        private static readonly Vector3 DefaultInitCameraPosition = new Vector3(0, -700, 700);
+        
+        private CarFollowingCamera _carFollowingCamera;
 
         public CameraController(Car car, int width, int height) {
-            _baseCamera = new BaseCamera(
-                new Vector3(0, -700, 700), Vector3.Zero, width, height, Angle.FromDegrees(100));
-
-            car.AddPositionObserver(TargetMovedHandler);
+            _carFollowingCamera = new CarFollowingCamera(DefaultInitCameraPosition, car, width, height, Angle.FromDegrees(100));
         }
 
-        public ICamera GetCamera() => _baseCamera;
-
-        private void TargetMovedHandler(Vector3 newPosition)
-        {
-
-        }
+        public ICamera GetCamera() => _carFollowingCamera;
     }
 }
