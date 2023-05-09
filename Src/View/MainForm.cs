@@ -48,5 +48,10 @@ namespace _3D_graphics
         {
             sceneController.ChangeToCarFollowingCamera();
         }
+
+        private void tPPCameraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sceneController.ChangeToTPPCamera();
+        }
     }
 }

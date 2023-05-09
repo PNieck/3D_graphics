@@ -36,6 +36,7 @@ namespace _3D_graphics
             StaticCameraButton = new ToolStripMenuItem();
             CarFollowingCameraButton = new ToolStripMenuItem();
             CanvasWidget = new PictureBox();
+            tPPCameraToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CanvasWidget).BeginInit();
             SuspendLayout();
@@ -53,7 +54,7 @@ namespace _3D_graphics
             // CameraSellector
             // 
             CameraSellector.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            CameraSellector.DropDownItems.AddRange(new ToolStripItem[] { StaticCameraButton, CarFollowingCameraButton });
+            CameraSellector.DropDownItems.AddRange(new ToolStripItem[] { StaticCameraButton, CarFollowingCameraButton, tPPCameraToolStripMenuItem });
             CameraSellector.Image = (Image)resources.GetObject("CameraSellector.Image");
             CameraSellector.ImageTransparentColor = Color.Magenta;
             CameraSellector.Name = "CameraSellector";
@@ -83,6 +84,13 @@ namespace _3D_graphics
             CanvasWidget.TabIndex = 1;
             CanvasWidget.TabStop = false;
             // 
+            // tPPCameraToolStripMenuItem
+            // 
+            tPPCameraToolStripMenuItem.Name = "tPPCameraToolStripMenuItem";
+            tPPCameraToolStripMenuItem.Size = new Size(224, 26);
+            tPPCameraToolStripMenuItem.Text = "TPP camera";
+            tPPCameraToolStripMenuItem.Click += tPPCameraToolStripMenuItem_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -107,5 +115,6 @@ namespace _3D_graphics
         private ToolStripDropDownButton CameraSellector;
         private ToolStripMenuItem StaticCameraButton;
         private ToolStripMenuItem CarFollowingCameraButton;
+        private ToolStripMenuItem tPPCameraToolStripMenuItem;
     }
 }

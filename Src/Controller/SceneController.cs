@@ -75,5 +75,11 @@ namespace _3D_graphics.Controller
             renderController.Camera.ChangeToCarFollowingCamera();
             RequestRender();
         }
+
+        public void ChangeToTPPCamera()
+        {
+            renderController.Camera.ChangeToTPPCamera();
+            RequestRender();
+        }
     }
 }

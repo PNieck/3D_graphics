@@ -3,12 +3,12 @@ using System.Numerics;
 
 namespace _3D_graphics.Model
 {
-    public delegate void CarHaveMoved(Vector3 newPosition);
+    public delegate void CarHaveMoved(Vector3 newCoordinates, Vector3 newVectorToFront);
 
     public class Car: RenderObject
     {
-        private const float movementSpeed = 5.0f;
-        private static readonly Angle turningSpeed = Angle.FromDegrees(5.0f);
+        public const float movementSpeed = 5.0f;
+        public static readonly Angle turningSpeed = Angle.FromDegrees(5.0f);
         
         private event CarHaveMoved? carHaveMoved;
 
@@ -16,6 +16,7 @@ namespace _3D_graphics.Model
         private Vector3 _coordinates;
 
         public Vector3 Coordinates { get { return _coordinates; } }
+        public Vector3 VectorToFront { get { return _front; } }
 
         public override IEnumerable<Triangle> triangles
         {
@@ -30,7 +31,7 @@ namespace _3D_graphics.Model
 
         public Car(RenderObject model) : base(model)
         {
-            _front = new Vector3(movementSpeed, 0, 0);
+            _front = Vector3.UnitX;
             _coordinates = Vector3.Zero;
         }
 
@@ -46,19 +47,27 @@ namespace _3D_graphics.Model
 
         public void GoForeward()
         {
-            _coordinates += _front;
-            carHaveMoved?.Invoke(Coordinates);
+            _coordinates += _front * movementSpeed;
+            InformObserversAboutMovement();
         }
 
         public void GoBackward()
         {
-            _coordinates -= _front;
-            carHaveMoved?.Invoke(Coordinates);
+            _coordinates -= _front * movementSpeed;
+            InformObserversAboutMovement();
         }
 
-        public void TurnRight() => TurnByAngle(-turningSpeed);
+        public void TurnRight()
+        {
+            TurnByAngle(-turningSpeed);
+            InformObserversAboutMovement();
+        }
 
-        public void TurnLeft() => TurnByAngle(turningSpeed);
+        public void TurnLeft()
+        {
+            TurnByAngle(turningSpeed);
+            InformObserversAboutMovement();
+        }
 
 
         private void TurnByAngle(Angle angle)
@@ -69,5 +78,8 @@ namespace _3D_graphics.Model
             );
             mesh.RotateAroundZ(angle);
         }
+
+        private void InformObserversAboutMovement()
+            => carHaveMoved?.Invoke(_coordinates, _front);
     }
 }

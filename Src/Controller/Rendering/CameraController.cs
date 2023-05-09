@@ -9,7 +9,7 @@ namespace _3D_graphics.Controller.Rendering
     {
         private static readonly Vector3 DefaultInitCameraPosition = new Vector3(0, -700, 700);
         private static readonly Vector3 DefaultCameraTarget = Vector3.Zero;
-        private static readonly Angle DefaultFOV = Angle.FromDegrees(100);
+        private static readonly Angle DefaultFOV = Angle.FromDegrees(90);
 
         private ICamera _actualCamera;
         private readonly Car _car;
@@ -38,11 +38,20 @@ namespace _3D_graphics.Controller.Rendering
                 _actualCamera = GetStaticCamera();
         }
 
+        public void ChangeToTPPCamera()
+        {
+            if (_actualCamera is not TPPCamera)
+                _actualCamera = GetTPPCamera();
+        }
+
 
         private ICamera GetCarFollowingCamera()
             => new CarFollowingCamera(DefaultInitCameraPosition, _car, _width, _height, DefaultFOV);
 
         private ICamera GetStaticCamera()
             => new StaticCamera(DefaultInitCameraPosition, DefaultCameraTarget, _width, _height, DefaultFOV);
+
+        private ICamera GetTPPCamera()
+            => new TPPCamera(_car, _width, _height, DefaultFOV);
     }
 }
