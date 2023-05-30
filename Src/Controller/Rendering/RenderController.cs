@@ -22,7 +22,7 @@ namespace _3D_graphics.Controller.Rendering
         public Canvas RenderScene(Scene scene)
         {
             ICamera camera = _cameraController.GetCamera();
-            return _renderEngine.RednerScene(scene, camera);
+            return _renderEngine.RenderScene(scene, camera);
         }
 
 

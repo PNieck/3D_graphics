@@ -15,6 +15,6 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines
             _canvas = new Canvas(width, height);
         }
 
-        public abstract Canvas RednerScene(Scene scene, ICamera camera);
+        public abstract Canvas RenderScene(Scene scene, ICamera camera);
     }
 }
