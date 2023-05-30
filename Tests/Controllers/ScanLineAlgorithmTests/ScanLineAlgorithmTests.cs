@@ -1,4 +1,6 @@
-﻿using _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling;
+﻿using _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators;
+using _3D_graphics.Controller.Rendering.RenderingEngines.Shading;
+using _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling;
 using _3D_graphics.Model.Canvas;
 using _3D_graphics.Model.Primitives;
 using System.Drawing;
@@ -16,14 +18,13 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
 
         private readonly ScanLineAlgorithm algorithm;
         private readonly Canvas canvas;
-        private readonly IColorCalculator colorCalculator;
 
         public ScanLineAlgorithmTests()
         {
             canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGTH);
             var zBuffer = new ZBuffer(canvas);
-            algorithm = new ScanLineAlgorithm(zBuffer, new ConstantCamera());
-            colorCalculator = new TestingColorCalculator(TESTING_COLOR);
+            algorithm = new ScanLineAlgorithm(zBuffer, new ConstantCamera(),
+                new ConstShading(new ConstColorCalculator(TESTING_COLOR)));
         }
 
         [Theory]
@@ -35,7 +36,7 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
 
             foreach (Triangle triangle in triangles)
             {
-                algorithm.DrawTriangle(triangle, colorCalculator);
+                algorithm.DrawTriangle(triangle);
             }
 
             Box boxWithTriangles = BoundingBox.Calculate(triangles);
@@ -59,7 +60,7 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
 
             foreach (Triangle triangle in triangles)
             {
-                algorithm.DrawTriangle(triangle, colorCalculator);
+                algorithm.DrawTriangle(triangle);
             }
 
             AssertCanvas(triangles);

@@ -15,7 +15,7 @@ namespace _3D_graphics.Controller.Rendering
         public RenderController(int windowWidth, int windowHeight, Car car)
         {
             _cameraController = new CameraController(car, windowWidth, windowHeight);
-            _renderEngine = new ConstantShading(windowWidth, windowHeight);
+            _renderEngine = new ObjectColorRendering(windowWidth, windowHeight);
             //_renderEngine = new EdgesRendering(windowWidth, windowHeight);
         }
 

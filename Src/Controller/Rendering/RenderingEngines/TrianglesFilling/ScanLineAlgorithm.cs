@@ -1,4 +1,5 @@
-﻿using _3D_graphics.Model.Camera;
+﻿using _3D_graphics.Controller.Rendering.RenderingEngines.Shading;
+using _3D_graphics.Model.Camera;
 using _3D_graphics.Model.Canvas;
 using _3D_graphics.Model.Primitives;
 using System.Numerics;
@@ -9,16 +10,18 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
     {
         private IPixelPainterWithBuffer painter;
         private Matrix4x4 cameraMatrix;
+        private IShading shadingAlgorithm;
 
-        public ScanLineAlgorithm(ZBuffer zBuffer, ICamera camera)
+        public ScanLineAlgorithm(ZBuffer zBuffer, ICamera camera, IShading shading)
         {
             painter = zBuffer.GetPainter();
             cameraMatrix = camera.GetCameraMatrix();
+            shadingAlgorithm = shading;
         }
 
-        public void DrawTriangle(Triangle triangle, IColorCalculator colorCalculator)
+        public void DrawTriangle(Triangle triangle)
         {
-            colorCalculator.SetActualTriangle(triangle);
+            shadingAlgorithm.SetTriangle(triangle);
 
             Triangle triangleFromObserwator = triangle.Transform(cameraMatrix);
 
@@ -28,12 +31,12 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
             /* check for trivial case of bottom-flat triangle */
             if (v2.y == v3.y)
             {
-                FillTopFlatTriangle(v1.coordinates, v2.coordinates, v3.coordinates, colorCalculator);
+                FillTopFlatTriangle(v1.coordinates, v2.coordinates, v3.coordinates);
             }
             /* check for trivial case of top-flat triangle */
             else if (v1.y == v2.y)
             {
-                FillBottomFlatTriangle(v1.coordinates, v2.coordinates, v3.coordinates, colorCalculator);
+                FillBottomFlatTriangle(v1.coordinates, v2.coordinates, v3.coordinates);
             }
             else
             {
@@ -47,18 +50,18 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
 
                 if (v2.coordinates.X < v4.X)
                 {
-                    FillTopFlatTriangle(v1.coordinates, v2.coordinates, v4, colorCalculator);
-                    FillBottomFlatTriangle(v2.coordinates, v4, v3.coordinates, colorCalculator);
+                    FillTopFlatTriangle(v1.coordinates, v2.coordinates, v4);
+                    FillBottomFlatTriangle(v2.coordinates, v4, v3.coordinates);
                 }
                 else
                 {
-                    FillTopFlatTriangle(v1.coordinates, v4, v2.coordinates, colorCalculator);
-                    FillBottomFlatTriangle(v4, v2.coordinates, v3.coordinates, colorCalculator);
+                    FillTopFlatTriangle(v1.coordinates, v4, v2.coordinates);
+                    FillBottomFlatTriangle(v4, v2.coordinates, v3.coordinates);
                 }
             }
         }
 
-        private void FillBottomFlatTriangle(Vector3 v1, Vector3 v2, Vector3 v3, IColorCalculator colorCalculator)
+        private void FillBottomFlatTriangle(Vector3 v1, Vector3 v2, Vector3 v3)
         {
             float invslope1 = (v1.X - v3.X) / (v1.Y - v3.Y);
             float invslope2 = (v2.X - v3.X) / (v2.Y - v3.Y);
@@ -70,13 +73,13 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
 
             for (int scanlineY = (int)v1.Y; scanlineY < maxY; scanlineY++)
             {
-                DrawHorizontalLine(curx1, curx2, scanlineY, colorCalculator);
+                DrawHorizontalLine(curx1, curx2, scanlineY);
                 curx1 += invslope1;
                 curx2 += invslope2;
             }
         }
 
-        private void FillTopFlatTriangle(Vector3 v1, Vector3 v2, Vector3 v3, IColorCalculator colorCalculator)
+        private void FillTopFlatTriangle(Vector3 v1, Vector3 v2, Vector3 v3)
         {
             float invslope1 = (v2.X - v1.X) / (v2.Y - v1.Y);
             float invslope2 = (v3.X - v1.X) / (v3.Y - v1.Y);
@@ -88,20 +91,20 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
 
             for (int scanlineY = (int)v1.Y; scanlineY < maxY; scanlineY++)
             {
-                DrawHorizontalLine(curx1, curx2, scanlineY, colorCalculator);
+                DrawHorizontalLine(curx1, curx2, scanlineY);
                 curx1 += invslope1;
                 curx2 += invslope2;
             }
         }
 
-        private void DrawHorizontalLine(float x1, float x2, int y, IColorCalculator colorCalculator)
+        private void DrawHorizontalLine(float x1, float x2, int y)
         {
             int actX = (int)MathF.Round(x1);
             int stopX = (int)MathF.Round(x2);
 
             while (actX <= stopX)
             {
-                painter.SetPixel(actX, y, colorCalculator.GetColor(Vector3.Zero));
+                painter.SetPixel(actX, y, shadingAlgorithm.GetColor(new Vertex(0,0,0)));
                 actX++;
             }
         }
