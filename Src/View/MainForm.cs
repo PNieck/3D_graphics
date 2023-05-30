@@ -1,5 +1,5 @@
 using _3D_graphics.Controller;
-using System.Windows.Forms;
+using _3D_graphics.Model.Canvas;
 
 namespace _3D_graphics
 {
@@ -15,7 +15,7 @@ namespace _3D_graphics
             sceneController.RequestRender();
         }
 
-        void NewSceneHandler(Model.Canvas screen)
+        void NewSceneHandler(Canvas screen)
         {
             screen.Apply(CanvasWidget);
         }

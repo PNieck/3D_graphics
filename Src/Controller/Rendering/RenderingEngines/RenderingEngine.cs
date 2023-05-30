@@ -1,17 +1,18 @@
 ﻿using _3D_graphics.Model;
 using _3D_graphics.Model.Camera;
+using _3D_graphics.Model.Canvas;
 
 namespace _3D_graphics.Controller.Rendering.RenderingEngines
 {
-    public abstract class BaseRenderingEngine
+    public abstract class RenderingEngine
     {
         protected static readonly Color Background = Color.White;
         
-        protected Canvas _screen;
+        protected Canvas _canvas;
 
-        public BaseRenderingEngine(int width, int height)
+        public RenderingEngine(int width, int height)
         {
-            _screen = new Canvas(width, height);
+            _canvas = new Canvas(width, height);
         }
 
         public abstract Canvas RednerScene(Scene scene, ICamera camera);

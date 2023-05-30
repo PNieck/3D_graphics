@@ -25,6 +25,13 @@ namespace _3D_graphics.Model.Primitives
             return new Triangle(v1.Move(vector), v2.Move(vector), v3.Move(vector));
         }
 
+        public IEnumerable<Vertex> Vertices()
+        {
+            yield return v1;
+            yield return v2;
+            yield return v3;
+        }
+
         public override string ToString()
         {
             return $"Coordinates: {v1.coordinates}, {v2.coordinates}, {v3.coordinates}";

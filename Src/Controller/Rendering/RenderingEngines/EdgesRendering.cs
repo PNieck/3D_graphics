@@ -1,11 +1,12 @@
 ﻿using _3D_graphics.Model;
 using _3D_graphics.Model.Camera;
+using _3D_graphics.Model.Canvas;
 using _3D_graphics.Model.Primitives;
 using System.Numerics;
 
 namespace _3D_graphics.Controller.Rendering.RenderingEngines
 {
-    public class EdgesRendering : BaseRenderingEngine
+    public class EdgesRendering : RenderingEngine
     {
         private static readonly Pen pen = Pens.Black;
 
@@ -15,7 +16,7 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines
         {
             Matrix4x4 cameraMatrix = camera.GetCameraMatrix();
 
-            using (ScreenPainter sp = _screen.GetScreenPainter())
+            using (ILinePainter sp = _canvas.GetEdgePainter())
             {
                 sp.Clear(Background);
 
@@ -34,10 +35,10 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines
                 }
             }
 
-            return _screen;
+            return _canvas;
         }
 
-        private void DrawEdge(Vertex v1, Vertex v2, ScreenPainter sp) =>
+        private void DrawEdge(Vertex v1, Vertex v2, ILinePainter sp) =>
             sp.DrawLine(pen, v1.x, v1.y, v2.x, v2.y);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using _3D_graphics.Controller.Rendering;
 using _3D_graphics.Controller.SceneInit;
 using _3D_graphics.Model;
+using _3D_graphics.Model.Canvas;
 
 namespace _3D_graphics.Controller
 {
@@ -16,7 +17,7 @@ namespace _3D_graphics.Controller
 
         public SceneController(int width, int height, SceneChangedHandler? handler = null)
         {
-            screen = new Model.Canvas(width, height);
+            screen = new Canvas(width, height);
             
             InitSceneContoller initScene = new InitSceneContoller();
             scene = initScene.GetScene();
