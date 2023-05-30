@@ -1,10 +1,8 @@
-﻿using _3D_graphics.Controller.Rendering.RenderingEngines.Utils;
+﻿using _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling;
 using _3D_graphics.Model.Canvas;
 using _3D_graphics.Model.Primitives;
-using System.Collections.Specialized;
 using System.Drawing;
 using System.Numerics;
-using System.Reflection;
 using Tests.TestingTools;
 
 namespace Tests.Controllers.ScanLineAlgorithmTests
@@ -16,14 +14,16 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
         private static readonly Color TESTING_COLOR = Color.FromArgb(0, 0, 0);
         private static readonly Color TESTING_BACKGROUND = Color.FromArgb(255, 255, 255);
 
-        private ScanLineAlgorithm algorithm;
-        private Canvas canvas;
+        private readonly ScanLineAlgorithm algorithm;
+        private readonly Canvas canvas;
+        private readonly IColorCalculator colorCalculator;
 
         public ScanLineAlgorithmTests()
         {
             canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGTH);
             var zBuffer = new ZBuffer(canvas);
             algorithm = new ScanLineAlgorithm(zBuffer, new ConstantCamera());
+            colorCalculator = new TestingColorCalculator(TESTING_COLOR);
         }
 
         [Theory]
@@ -35,7 +35,7 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
 
             foreach (Triangle triangle in triangles)
             {
-                algorithm.DrawTriangle(triangle, ColorCalculator);
+                algorithm.DrawTriangle(triangle, colorCalculator);
             }
 
             Box boxWithTriangles = BoundingBox.Calculate(triangles);
@@ -59,15 +59,12 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
 
             foreach (Triangle triangle in triangles)
             {
-                algorithm.DrawTriangle(triangle, ColorCalculator);
+                algorithm.DrawTriangle(triangle, colorCalculator);
             }
 
             AssertCanvas(triangles);
         }
 
-
-        private Color ColorCalculator(Vector3 coordinates)
-        => TESTING_COLOR;
 
         private void AssertCanvas(IEnumerable<Triangle> triangles)
         {

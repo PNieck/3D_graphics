@@ -1,4 +1,4 @@
-﻿using _3D_graphics.Controller.Rendering.RenderingEngines.Utils;
+﻿using _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling;
 using _3D_graphics.Model;
 using _3D_graphics.Model.Camera;
 using _3D_graphics.Model.Canvas;
@@ -26,16 +26,31 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines
 
             foreach (var model in scene.renderObjects)
             {
+                IColorCalculator colorCalculator = new ConstColorCalculator(model);
+
                 foreach (Triangle triangle in model.triangles)
                 {
-                    algorithm.DrawTriangle(triangle, CalculateColor);
+                    algorithm.DrawTriangle(triangle, colorCalculator);
                 }
             }
 
             return _canvas;
         }
 
-        private Color CalculateColor(Vector3 coordinates)
-            => Color.Orange;
+
+        private readonly struct ConstColorCalculator : IColorCalculator
+        {
+            private readonly Color _color;
+
+            public ConstColorCalculator(RenderObject renderObject)
+            {
+                _color = renderObject.color;
+            }
+
+            public Color GetColor(Vector3 worldCoordinates)
+                => _color;
+
+            public void SetActualTriangle(Triangle worldTriangle) { }
+        }
     }
 }
