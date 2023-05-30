@@ -12,7 +12,7 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines
 
         public EdgesRendering(int width, int height) : base(width, height) { }
 
-        public override Canvas RednerScene(Scene scene, ICamera camera)
+        public override Canvas RenderScene(Scene scene, ICamera camera)
         {
             Matrix4x4 cameraMatrix = camera.GetCameraMatrix();
 
@@ -38,7 +38,7 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines
             return _canvas;
         }
 
-        private void DrawEdge(Vertex v1, Vertex v2, ILinePainter sp) =>
+        private static void DrawEdge(Vertex v1, Vertex v2, ILinePainter sp) =>
             sp.DrawLine(pen, v1.x, v1.y, v2.x, v2.y);
     }
 }

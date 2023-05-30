@@ -3,26 +3,26 @@ using _3D_graphics.Model.Canvas;
 using _3D_graphics.Model.Primitives;
 using System.Numerics;
 
-namespace _3D_graphics.Controller.Rendering.RenderingEngines.Utils
+namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
 {
-    public delegate Color ColorCalculator(Vector3 worldCoordinates);
-
-    public  class ScanLineAlgorithm
+    public class ScanLineAlgorithm
     {
         private IPixelPainterWithBuffer painter;
         private Matrix4x4 cameraMatrix;
 
         public ScanLineAlgorithm(ZBuffer zBuffer, ICamera camera)
         {
-            this.painter = zBuffer.GetPainter();
-            this.cameraMatrix = camera.GetCameraMatrix();
+            painter = zBuffer.GetPainter();
+            cameraMatrix = camera.GetCameraMatrix();
         }
 
-        public void DrawTriangle(Triangle triangle, ColorCalculator colorCalculator)
+        public void DrawTriangle(Triangle triangle, IColorCalculator colorCalculator)
         {
+            colorCalculator.SetActualTriangle(triangle);
+
             Triangle triangleFromObserwator = triangle.Transform(cameraMatrix);
 
-            (Vertex v1, Vertex v2, Vertex v3) =  SortVerticesAscendingByY(triangleFromObserwator);
+            (Vertex v1, Vertex v2, Vertex v3) = SortVerticesAscendingByY(triangleFromObserwator);
 
             /* here we know that v1.y <= v2.y <= v3.y */
             /* check for trivial case of bottom-flat triangle */
@@ -58,7 +58,7 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.Utils
             }
         }
 
-        private void FillBottomFlatTriangle(Vector3 v1, Vector3 v2, Vector3 v3, ColorCalculator colorCalc)
+        private void FillBottomFlatTriangle(Vector3 v1, Vector3 v2, Vector3 v3, IColorCalculator colorCalculator)
         {
             float invslope1 = (v1.X - v3.X) / (v1.Y - v3.Y);
             float invslope2 = (v2.X - v3.X) / (v2.Y - v3.Y);
@@ -70,13 +70,13 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.Utils
 
             for (int scanlineY = (int)v1.Y; scanlineY < maxY; scanlineY++)
             {
-                DrawHorizontalLine(curx1, curx2, scanlineY, colorCalc);
+                DrawHorizontalLine(curx1, curx2, scanlineY, colorCalculator);
                 curx1 += invslope1;
                 curx2 += invslope2;
             }
         }
 
-        private void FillTopFlatTriangle(Vector3 v1, Vector3 v2, Vector3 v3, ColorCalculator colorCalc)
+        private void FillTopFlatTriangle(Vector3 v1, Vector3 v2, Vector3 v3, IColorCalculator colorCalculator)
         {
             float invslope1 = (v2.X - v1.X) / (v2.Y - v1.Y);
             float invslope2 = (v3.X - v1.X) / (v3.Y - v1.Y);
@@ -88,20 +88,20 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.Utils
 
             for (int scanlineY = (int)v1.Y; scanlineY < maxY; scanlineY++)
             {
-                DrawHorizontalLine(curx1, curx2, scanlineY, colorCalc);
+                DrawHorizontalLine(curx1, curx2, scanlineY, colorCalculator);
                 curx1 += invslope1;
                 curx2 += invslope2;
             }
         }
 
-        private void DrawHorizontalLine(float x1, float x2, int y, ColorCalculator colorCalculator)
+        private void DrawHorizontalLine(float x1, float x2, int y, IColorCalculator colorCalculator)
         {
             int actX = (int)MathF.Round(x1);
             int stopX = (int)MathF.Round(x2);
 
             while (actX <= stopX)
             {
-                painter.SetPixel(actX, y, colorCalculator(Vector3.Zero));
+                painter.SetPixel(actX, y, colorCalculator.GetColor(Vector3.Zero));
                 actX++;
             }
         }
@@ -115,7 +115,7 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.Utils
 
             float d = -(normal.X * triangle.v1.x + normal.Y * triangle.v1.y + normal.Z * triangle.v1.z);
 
-            return -(normal.X * x + normal.Y * y + d)/normal.Z;
+            return -(normal.X * x + normal.Y * y + d) / normal.Z;
         }
 
         private (Vertex v1, Vertex v2, Vertex v3) SortVerticesAscendingByY(Triangle triangle)
@@ -127,7 +127,8 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.Utils
                 triangle.v3
             };
 
-            vertices.Sort((Vertex v1, Vertex v2) => {
+            vertices.Sort((v1, v2) =>
+            {
                 int yCompResult = v1.y.CompareTo(v2.y);
                 if (yCompResult != 0) return yCompResult;
                 else return v1.x.CompareTo(v2.x);
