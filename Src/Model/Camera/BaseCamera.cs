@@ -20,6 +20,8 @@ namespace _3D_graphics.Model.Camera
         private bool _cameraParametersHaveChanged;
         private Matrix4x4 _cameraMatrix;
 
+        public Vector3 Position { get { return _position; } }
+
         public BaseCamera(Vector3 coordinates, Vector3 cameraTarget, int width, int height, Angle fov)
         {
             _fov = fov;

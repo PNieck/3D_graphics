@@ -1,24 +1,27 @@
 ﻿using _3D_graphics.Model;
 using _3D_graphics.Model.Primitives;
 using _3D_graphics.Model.SourceOfLight;
+using System.Numerics;
 
 namespace _3D_graphics.Controller.SceneInit
 {
-    public class InitSceneContoller
+    public class InitSceneController
     {
         private ObjParser _objParser;
 
-        public InitSceneContoller()
+        public InitSceneController()
         {
             _objParser = new ObjParser();
         }
 
         public Scene GetScene()
         {
-            //var renderObjects = new List<RenderObject>();
             var renderObjects = GetBackgroundObjects();
             var car = GetCarObject();
-            var lights = new List<ISourceOfLight>();
+            var lights = new List<ISourceOfLight>
+            {
+                new PointLight(new Vector3(0, 0, 800))
+            };
 
             return new Scene(renderObjects, lights, car);
         }

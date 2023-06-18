@@ -7,7 +7,7 @@ namespace Tests.Controllers
         [Fact]
         public void InitSceneControllerSuccesfullCreation()
         {
-            InitSceneContoller controller = new InitSceneContoller();
+            InitSceneController controller = new InitSceneController();
         }
     }
 }

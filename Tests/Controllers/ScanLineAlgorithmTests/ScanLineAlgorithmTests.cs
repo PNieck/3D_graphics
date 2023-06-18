@@ -1,10 +1,9 @@
 ﻿using _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators;
-using _3D_graphics.Controller.Rendering.RenderingEngines.Shading;
+using _3D_graphics.Controller.Rendering.RenderingEngines.ShadingAlgorithms;
 using _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling;
 using _3D_graphics.Model.Canvas;
 using _3D_graphics.Model.Primitives;
 using System.Drawing;
-using System.Numerics;
 using Tests.TestingTools;
 
 namespace Tests.Controllers.ScanLineAlgorithmTests
@@ -18,13 +17,14 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
 
         private readonly ScanLineAlgorithm algorithm;
         private readonly Canvas canvas;
+        private readonly Shading shading;
 
         public ScanLineAlgorithmTests()
         {
             canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGTH);
             var zBuffer = new ZBuffer(canvas);
-            algorithm = new ScanLineAlgorithm(zBuffer, new ConstantCamera(),
-                new ConstShading(new ConstColorCalculator(TESTING_COLOR)));
+            shading = new ConstShading(new ConstColorCalculator(TESTING_COLOR));
+            algorithm = new ScanLineAlgorithm(zBuffer, new ConstantCamera(), shading);
         }
 
         [Theory]
@@ -42,12 +42,12 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
             Box boxWithTriangles = BoundingBox.Calculate(triangles);
             boxWithTriangles.Inflate(1);
 
-            foreach(var pixel in CanvasPixels())
+            foreach(var (x, y) in CanvasPixels())
             {
-                if (boxWithTriangles.Contains(pixel.x, pixel.y))
+                if (boxWithTriangles.Contains(x, y))
                     continue;
 
-                Assert.Equal(TESTING_BACKGROUND, painter.GetPixel(pixel.x, pixel.y));
+                Assert.Equal(TESTING_BACKGROUND, painter.GetPixel(x, y));
             }
         }
 
@@ -64,6 +64,42 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
             }
 
             AssertCanvas(triangles);
+        }
+
+        [Fact]
+        public void SimpleTriangleCovering()
+        {
+            Triangle t1 = new Triangle(
+                            new Vertex(-20, -10, 5),
+                            new Vertex(-40,  20, 5),
+                            new Vertex( 30,  25, 5));
+
+            Triangle t2 = new Triangle(
+                            new Vertex(-20, -10, 10),
+                            new Vertex(-40,  20, 10),
+                            new Vertex( 30,  25, 10));
+
+            Color triangleBehindColor = Color.Orange;
+
+            var painter = canvas.GetPixelPainter();
+            painter.Clear(TESTING_BACKGROUND);
+
+            algorithm.DrawTriangle(t2);
+            shading.SetBaseColor(triangleBehindColor);
+            algorithm.DrawTriangle(t1);
+
+            foreach (var (x, y) in CanvasPixels())
+                Assert.NotEqual(triangleBehindColor, painter.GetPixel(x, y));
+
+            painter.Clear(TESTING_BACKGROUND);
+
+            shading.SetBaseColor(triangleBehindColor);
+            algorithm.DrawTriangle(t1);
+            shading.SetBaseColor(TESTING_COLOR);
+            algorithm.DrawTriangle(t2);
+
+            foreach (var (x, y) in CanvasPixels())
+                Assert.NotEqual(triangleBehindColor, painter.GetPixel(x, y));
         }
 
 

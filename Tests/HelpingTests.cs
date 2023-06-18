@@ -39,7 +39,7 @@ namespace Tests
         }
 
         [Fact]
-        public void RectangeInflateTest()
+        public void RectangleInflateWorking()
         {
             float rectX = 10;
             float rectY = 20;
@@ -56,6 +56,15 @@ namespace Tests
             Assert.Equal(rectY - inflateHeight, rectangle.Y);
             Assert.Equal(rectWidth + 2 * inflateWidth, rectangle.Width);
             Assert.Equal(rectHeight + 2 * inflateHeight, rectangle.Height);
+        }
+
+        [Fact]
+        public void VectorsMultiplicationWork()
+        {
+            Vector3 v1 = new Vector3(5, 4, 2);
+            Vector3 v2 = new Vector3(8, 5, 3);
+
+            Assert.Equal(new Vector3(40, 20, 6), v1 * v2);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using _3D_graphics.Model.Primitives;
+using System.Numerics;
 
 namespace _3D_graphics.Model
 {
@@ -25,6 +26,8 @@ namespace _3D_graphics.Model
         public void Scale(float ratio) => mesh.Scale(ratio);
 
         public void RotateAroundZ(Angle degrees) => mesh.RotateAroundZ(degrees);
+
+        public void MoveByVector(Vector3 vector) => mesh.Move(vector);
 
         public override string ToString()
         {

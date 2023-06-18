@@ -15,8 +15,9 @@ namespace _3D_graphics.Controller.Rendering
         public RenderController(int windowWidth, int windowHeight, Car car)
         {
             _cameraController = new CameraController(car, windowWidth, windowHeight);
-            _renderEngine = new ObjectColorRendering(windowWidth, windowHeight);
+            //_renderEngine = new ObjectColorRendering(windowWidth, windowHeight);
             //_renderEngine = new EdgesRendering(windowWidth, windowHeight);
+            _renderEngine = new PhongRendering(windowWidth, windowHeight);
         }
 
         public Canvas RenderScene(Scene scene)
@@ -24,7 +25,5 @@ namespace _3D_graphics.Controller.Rendering
             ICamera camera = _cameraController.GetCamera();
             return _renderEngine.RenderScene(scene, camera);
         }
-
-
     }
 }

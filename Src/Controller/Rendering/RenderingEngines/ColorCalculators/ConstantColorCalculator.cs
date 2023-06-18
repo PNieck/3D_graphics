@@ -3,20 +3,16 @@ using _3D_graphics.Model.Primitives;
 
 namespace _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators
 {
-    public struct ConstColorCalculator : IColorCalculator
+    public class ConstColorCalculator : ColorCalculator
     {
-        private readonly Color _color;
-
         public ConstColorCalculator(RenderObject renderObject):
-            this(renderObject.color)
+            base(renderObject.color)
         { }
 
-        public ConstColorCalculator(Color color)
-        {
-            _color = color;
-        }
+        public ConstColorCalculator(Color color) : base(color)
+        { }
 
-        public Color GetColor(Vertex worldCoordinates)
-            => _color;
+        public override Color GetColor(Vertex worldCoordinates)
+            => baseColor;
     }
 }

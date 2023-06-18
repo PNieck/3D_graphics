@@ -2,31 +2,24 @@
 using _3D_graphics.Model.Primitives;
 using System.Numerics;
 
-namespace _3D_graphics.Controller.Rendering.RenderingEngines.Shading
+namespace _3D_graphics.Controller.Rendering.RenderingEngines.ShadingAlgorithms
 {
-    public class ConstShading : IShading
+    public class ConstShading : Shading
     {
-        private IColorCalculator colorCalculator;
         private Color color;
 
-        public ConstShading(IColorCalculator colorCalculator)
+        public ConstShading(ColorCalculator colorCalculator): base(colorCalculator)
         {
-            this.colorCalculator = colorCalculator;
             color = Color.Black;
         }
             
 
-        public Color GetColor(Vertex worldCoordinates)
+        public override Color GetColor(Vector3 worldCoordinates)
             => color;
 
-        public void SetTriangle(Triangle triangle)
+        public override void SetTriangle(Triangle triangle)
         {
             color = colorCalculator.GetColor(GetMiddleOfTriangle(triangle));
-        }
-
-        public void SetColorCalculator(IColorCalculator colorCalculator)
-        {
-            this.colorCalculator = colorCalculator;
         }
 
 
