@@ -14,6 +14,13 @@ namespace _3D_graphics.Controller
         PhongShading
     }
 
+    public enum CameraType
+    {
+        Static,
+        TPP,
+        CarFollowing
+    }
+
     public class SceneController
     {
         private Canvas screen;
@@ -72,21 +79,9 @@ namespace _3D_graphics.Controller
             RequestRender();
         }
 
-        public void ChangeToStaticCamera()
+        public void SetCameraType(CameraType cameraType)
         {
-            renderController.Camera.ChangeToStaticCamera();
-            RequestRender();
-        }
-
-        public void ChangeToCarFollowingCamera()
-        {
-            renderController.Camera.ChangeToCarFollowingCamera();
-            RequestRender();
-        }
-
-        public void ChangeToTPPCamera()
-        {
-            renderController.Camera.ChangeToTPPCamera();
+            renderController.Camera.SetCameraType(cameraType);
             RequestRender();
         }
 

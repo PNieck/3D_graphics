@@ -26,22 +26,28 @@ namespace _3D_graphics.Controller.Rendering
 
         public ICamera GetCamera() => _actualCamera;
 
-        public void ChangeToCarFollowingCamera()
+        public void SetCameraType(CameraType cameraType)
         {
-            if (_actualCamera is not CarFollowingCamera)
-                _actualCamera = GetCarFollowingCamera();
-        }
+            switch (cameraType)
+            {
+                case CameraType.Static:
+                    if (_actualCamera is not StaticCamera)
+                        _actualCamera = GetStaticCamera();
+                    break;
 
-        public void ChangeToStaticCamera()
-        {
-            if (_actualCamera is not StaticCamera)
-                _actualCamera = GetStaticCamera();
-        }
+                case CameraType.CarFollowing:
+                    if (_actualCamera is not CarFollowingCamera)
+                        _actualCamera = GetCarFollowingCamera();
+                    break;
 
-        public void ChangeToTPPCamera()
-        {
-            if (_actualCamera is not TPPCamera)
-                _actualCamera = GetTPPCamera();
+                case CameraType.TPP:
+                    if (_actualCamera is not TPPCamera)
+                        _actualCamera = GetTPPCamera();
+                    break;
+
+                default:
+                    throw new Exception("Unknown camera type");
+            }
         }
 
 
