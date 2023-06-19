@@ -40,19 +40,13 @@ namespace _3D_graphics
         }
 
         private void StaticCameraButton_Click(object sender, EventArgs e)
-        {
-            sceneController.ChangeToStaticCamera();
-        }
+            => sceneController.SetCameraType(CameraType.Static);
 
         private void CarFollowingCameraButton_Click(object sender, EventArgs e)
-        {
-            sceneController.ChangeToCarFollowingCamera();
-        }
+            => sceneController.SetCameraType(CameraType.CarFollowing);
 
-        private void tPPCameraToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            sceneController.ChangeToTPPCamera();
-        }
+        private void TPPCameraToolStripMenuItem_Click(object sender, EventArgs e)
+            => sceneController.SetCameraType(CameraType.TPP);
 
         private void modelColorToolStripMenuItem_Click(object sender, EventArgs e)
             => sceneController.SetRenderingType(RenderingType.ObjectColor);

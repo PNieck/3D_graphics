@@ -6,15 +6,14 @@ namespace _3D_graphics.Model.Camera
     public class TPPCamera : Camera, ICamera
     {
         private static readonly Vector3 CameraPositionOffset = new Vector3(0, 0, 300);
-        private const float CameraTargetMultiplier = 40f;
-        private const float CameraPositionMultiplier = -10f;
+        private const float CameraTargetMultiplier = 1000f;
+        private const float CameraPositionMultiplier = -500f;
 
         public TPPCamera(Car car, int width, int height, Angle fov):
             base(CalculateCameraPosition(car.Coordinates, car.VectorToFront), CalculateCameraTarget(car.Coordinates, car.VectorToFront), width, height, fov)
         {
             car.AddPositionObserver(CarHaveMovedHandler);
         }
-
 
         private void CarHaveMovedHandler(Vector3 coordinates, Vector3 vectorToFront)
         {
@@ -23,6 +22,7 @@ namespace _3D_graphics.Model.Camera
                 CalculateCameraTarget(coordinates, vectorToFront)
             );
         }
+
 
         private static Vector3 CalculateCameraPosition(Vector3 carCoordinates, Vector3 vectorToFront)
             => vectorToFront * CameraPositionMultiplier + carCoordinates + CameraPositionOffset;
