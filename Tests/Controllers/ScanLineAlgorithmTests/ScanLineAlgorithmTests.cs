@@ -24,7 +24,7 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
             canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGTH);
             var zBuffer = new ZBuffer(canvas);
             shading = new ConstShading(new ConstColorCalculator(TESTING_COLOR));
-            algorithm = new ScanLineAlgorithm(zBuffer, new ConstantCamera(), shading);
+            algorithm = new ScanLineAlgorithm(zBuffer, new IdentityCamera(), shading);
         }
 
         [Theory]

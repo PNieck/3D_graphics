@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace _3D_graphics.Model.Camera
 {
-    public class TPPCamera : BaseCamera, ICamera
+    public class TPPCamera : Camera, ICamera
     {
         private static readonly Vector3 CameraPositionOffset = new Vector3(0, 0, 3);
         private const float CameraTargetMultiplier = 15f;

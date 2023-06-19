@@ -17,7 +17,7 @@ namespace _3D_graphics.Model.Primitives
 
         public Triangle Transform(Matrix4x4 matrix)
         {
-            return new Triangle(v1.Tranform(matrix), v2.Tranform(matrix), v3.Tranform(matrix));
+            return new Triangle(v1.Transform(matrix), v2.Transform(matrix), v3.Transform(matrix));
         }
 
         public Triangle Move(Vector3 vector)

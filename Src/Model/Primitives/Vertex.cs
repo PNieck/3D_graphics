@@ -35,7 +35,7 @@ namespace _3D_graphics.Model.Primitives
             }
         }
 
-        public Vertex Tranform(Matrix4x4 matrix)
+        public Vertex Transform(Matrix4x4 matrix)
         {
             return new Vertex(
                 Vector3.Transform(coordinates, matrix),

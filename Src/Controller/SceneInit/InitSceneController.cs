@@ -39,7 +39,7 @@ namespace _3D_graphics.Controller.SceneInit
 
         public Car GetCarObject()
         {
-            Car car = new Car(ParseFromResources(Models.Car, Color.Blue, "Car"));
+            Car car = new Car(ParseFromResources(Models.sphere, Color.Blue, "Sphere-car"));
             car.Scale(100);
             car.RotateAroundZ(Angle.FromDegrees(180));
             return car;

@@ -9,23 +9,21 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
     public class ScanLineAlgorithm
     {
         private IPixelPainterWithBuffer painter;
-        private Matrix4x4 cameraMatrix;
+        private ICamera camera;
         private Shading shadingAlgorithm;
-        private Matrix4x4 invertedCameraMatrix;
 
         public ScanLineAlgorithm(ZBuffer zBuffer, ICamera camera, Shading shading)
         {
             painter = zBuffer.GetPainter();
-            cameraMatrix = camera.GetCameraMatrix();
+            this.camera = camera;
             shadingAlgorithm = shading;
-            Matrix4x4.Invert(cameraMatrix, out invertedCameraMatrix);
         }
 
         public void DrawTriangle(Triangle triangle)
         {
             shadingAlgorithm.SetTriangle(triangle);
 
-            Triangle triangleFromObserver = triangle.Transform(cameraMatrix);
+            Triangle triangleFromObserver = camera.Project(triangle);
 
             (Vertex v1, Vertex v2, Vertex v3) = SortVerticesAscendingByY(triangleFromObserver);
 
@@ -110,7 +108,7 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
 
                 if (painter.ShouldDraw(actX, y, z))
                 {
-                    Vector3 worldCoordinates = Vector3.Transform(new Vector3(actX, y, z), invertedCameraMatrix);
+                    Vector3 worldCoordinates = Vector3.Transform(new Vector3(actX, y, z), Matrix4x4.Identity);
 
                     painter.SetPixel(actX, y, z, shadingAlgorithm.GetColor(worldCoordinates));
                 }
@@ -129,6 +127,12 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
 
             return -(normal.X * x + normal.Y * y + d) / normal.Z;
         }
+
+        //private Vector3 GetWorldVector(float screenSpaceX, float screenSpaceY, float screenSpaceZ)
+        //{
+        //    Vector4 tmp = new Vector4(screenSpaceX, screenSpaceY, screenSpaceZ);
+        //    tmp = Vector4.Transform()
+        //}
 
         private static (Vertex v1, Vertex v2, Vertex v3) SortVerticesAscendingByY(Triangle triangle)
         {

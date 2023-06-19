@@ -16,8 +16,8 @@ namespace _3D_graphics.Controller.Rendering
         {
             _cameraController = new CameraController(car, windowWidth, windowHeight);
             //_renderEngine = new ObjectColorRendering(windowWidth, windowHeight);
-            //_renderEngine = new EdgesRendering(windowWidth, windowHeight);
-            _renderEngine = new PhongRendering(windowWidth, windowHeight);
+            _renderEngine = new EdgesRendering(windowWidth, windowHeight);
+            //_renderEngine = new PhongRendering(windowWidth, windowHeight);
         }
 
         public Canvas RenderScene(Scene scene)
