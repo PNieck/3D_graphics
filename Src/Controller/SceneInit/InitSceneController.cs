@@ -20,7 +20,7 @@ namespace _3D_graphics.Controller.SceneInit
             var car = GetCarObject();
             var lights = new List<ISourceOfLight>
             {
-                new PointLight(new Vector3(0, 0, 800))
+                new PointLight(new Vector3(0, 100, 400))
             };
 
             return new Scene(renderObjects, lights, car);
@@ -39,9 +39,10 @@ namespace _3D_graphics.Controller.SceneInit
 
         public Car GetCarObject()
         {
-            Car car = new Car(ParseFromResources(Models.sphere, Color.Blue, "Sphere-car"));
+            Car car = new Car(ParseFromResources(Models.Car, Color.Blue, "Car"));
             car.Scale(100);
             car.RotateAroundZ(Angle.FromDegrees(180));
+            car.MoveByVector(new Vector3(0, 0, 50));
             return car;
         }
 

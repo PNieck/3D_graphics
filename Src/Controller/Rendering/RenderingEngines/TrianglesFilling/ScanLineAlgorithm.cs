@@ -108,7 +108,7 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
 
                 if (painter.ShouldDraw(actX, y, z))
                 {
-                    Vector3 worldCoordinates = Vector3.Transform(new Vector3(actX, y, z), Matrix4x4.Identity);
+                    Vector3 worldCoordinates = camera.Unproject(new Vector3(actX, y, z));
 
                     painter.SetPixel(actX, y, z, shadingAlgorithm.GetColor(worldCoordinates));
                 }
@@ -127,12 +127,6 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
 
             return -(normal.X * x + normal.Y * y + d) / normal.Z;
         }
-
-        //private Vector3 GetWorldVector(float screenSpaceX, float screenSpaceY, float screenSpaceZ)
-        //{
-        //    Vector4 tmp = new Vector4(screenSpaceX, screenSpaceY, screenSpaceZ);
-        //    tmp = Vector4.Transform()
-        //}
 
         private static (Vertex v1, Vertex v2, Vertex v3) SortVerticesAscendingByY(Triangle triangle)
         {

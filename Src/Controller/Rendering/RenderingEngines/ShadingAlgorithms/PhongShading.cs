@@ -2,7 +2,6 @@
 
 using _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators;
 using _3D_graphics.Model.Primitives;
-using System.Diagnostics;
 using System.Numerics;
 
 namespace _3D_graphics.Controller.Rendering.RenderingEngines.ShadingAlgorithms

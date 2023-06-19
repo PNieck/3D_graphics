@@ -75,24 +75,12 @@
                 return zBuffer[actX, actY] > z;
             }
 
-            public bool ShouldDrawProjected(float x, float y, float z)
-                => ShouldDraw(UnprojectX(x), UnprojectY(y), z);
-
-            public void SetPixelProjected(float x, float y, float z, Color color)
-                => SetPixel(UnprojectX(x), UnprojectY(y), z, color);
-
 
             private int RecalculateX(int x)
                 => x + xChange;
 
             private int RecalculateY(int y)
                 => yChange - y;
-
-            private int UnprojectX(float x)
-                => (int)MathF.Round(x * xChange);
-
-            private int UnprojectY(float y)
-                => (int)MathF.Round(y * yChange);
 
             private bool CoordinatesInRange(int actX, int actY)
                 => actX > 0 && actX < zBuffer.GetLength(0) &&

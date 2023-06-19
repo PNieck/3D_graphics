@@ -7,7 +7,7 @@ namespace _3D_graphics.Controller.Rendering
 {
     public class CameraController
     {
-        private static readonly Vector3 DefaultInitCameraPosition = new Vector3(0, -700, 700);
+        private static readonly Vector3 DefaultInitCameraPosition = new Vector3(0, -400, 400);
         private static readonly Vector3 DefaultCameraTarget = Vector3.Zero;
         private static readonly Angle DefaultFOV = Angle.FromDegrees(50);
 

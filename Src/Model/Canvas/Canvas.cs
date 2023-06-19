@@ -97,9 +97,6 @@ namespace _3D_graphics.Model.Canvas
                 _graphics.DrawLine(pen, actX1, actY1, actX2, actY2);
             }
 
-            public void DrawProjectedLine(Pen pen, float x1, float y1, float x2, float y2)
-                => DrawLine(pen, x1 * _xChange, y1 * _yChange, x2 * _xChange, y2 * _yChange);
-
             public void Clear(Color color)
                 => _graphics.Clear(color);
 

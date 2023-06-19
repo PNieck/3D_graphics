@@ -37,6 +37,6 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines
         }
 
         private static void DrawEdge(Vector3 v1, Vector3 v2, ILinePainter sp) =>
-            sp.DrawProjectedLine(pen, v1.X, v1.Y, v2.X, v2.Y);
+            sp.DrawLine(pen, v1.X, v1.Y, v2.X, v2.Y);
     }
 }

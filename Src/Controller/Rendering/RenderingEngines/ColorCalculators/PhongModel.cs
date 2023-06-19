@@ -9,7 +9,7 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators
     {
         private const float SPECULAR_REFLECTION_CONST = 0.2f;
         private const float DIFFUSE_REFACTION_CONST = 0.5f;
-        private const float AMBIENT_REFLECTION_CONST = 0.5f;
+        private const float AMBIENT_REFLECTION_CONST = 0.7f;
         private const float SHINESS_CONST = 20;
 
         private ColorRatios colorRations;
@@ -42,13 +42,14 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators
                 Vector3 lightReflection = CalculateReflection(worldCoordinates.normal, toLight);
 
                 float normalToLightCos = Vector3.Dot(worldCoordinates.normal, toLight);
-                float viewerToReflectionCos = Vector3.Dot(toViewer, toLight);
+                float viewerToReflectionCos = Vector3.Dot(toViewer, lightReflection);
 
                 if (normalToLightCos > 0.0f)
                     resultColorRations += DIFFUSE_REFACTION_CONST * mixedColorRatios * normalToLightCos;
 
                 if (viewerToReflectionCos > 0.0f)
                     resultColorRations += AMBIENT_REFLECTION_CONST * mixedColorRatios * MathF.Pow(viewerToReflectionCos, SHINESS_CONST);
+                    
             }
 
             return resultColorRations.GetColor();

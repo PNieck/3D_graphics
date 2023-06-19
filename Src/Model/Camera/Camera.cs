@@ -8,7 +8,8 @@ namespace _3D_graphics.Model.Camera
         private const float NEAR_PLANE = 10;
         private const float FAR_PLANE = 1000;
 
-        private readonly float _aspectRatio;
+        private readonly int _width;
+        private readonly int _height;
         private readonly Angle _fov;
 
         private Vector3 _position;
@@ -21,12 +22,15 @@ namespace _3D_graphics.Model.Camera
         private Matrix4x4 _cameraMatrix;
         private Matrix4x4 _normalsTransformationMatrix;
 
+        private float _aspectRatio { get => _width / (float)_height; }
+
         public Vector3 Position { get { return _position; } }
 
         public Camera(Vector3 coordinates, Vector3 cameraTarget, int width, int height, Angle fov)
         {
             _fov = fov;
-            _aspectRatio = width / (float)height;
+            _width = width;
+            _height = height;
             _position = coordinates;
             _target = cameraTarget;
             _cameraParametersHaveChanged = false;
@@ -57,7 +61,7 @@ namespace _3D_graphics.Model.Camera
         {
             var p = Vector4.Transform(new Vector4(worldPosition, 1.0f), GetCameraMatrix());
 
-            return new Vector3(p.X / p.W, p.Y / p.W, p.Z / p.W);
+            return new Vector3(p.X / p.W * _width / 2, p.Y / p.W * _height / 2, p.Z / p.W);
         }
 
         public Vector3 ProjectNormal(Vector3 worldNormal)
@@ -75,10 +79,9 @@ namespace _3D_graphics.Model.Camera
 
         public Vector3 Unproject(Vector3 screenPosition)
         {
-            if (!Matrix4x4.Invert(GetCameraMatrix(), out var matrix))
-                throw new Exception("Cannot invert camera matrix");
-
-            var p = Vector4.Transform(new Vector4(screenPosition, 1.0f), matrix);
+            screenPosition.X /= _width / 2;
+            screenPosition.Y /= _height / 2;
+            var p = Vector4.Transform(new Vector4(screenPosition, 1.0f), Matrix4x4.Transpose(_normalsTransformationMatrix));
 
             return new Vector3(p.X / p.W, p.Y / p.W, p.Z / p.W);
         }
@@ -120,6 +123,8 @@ namespace _3D_graphics.Model.Camera
                 throw new Exception("Cannot invert camera matrix");
 
             _normalsTransformationMatrix = Matrix4x4.Transpose(_normalsTransformationMatrix);
-        }      
+        }
+
+        
     }
 }
