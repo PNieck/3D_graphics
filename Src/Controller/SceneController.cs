@@ -7,6 +7,13 @@ namespace _3D_graphics.Controller
 {
     public delegate void SceneChangedHandler(Canvas screen);
 
+    public enum RenderingType
+    {
+        Edges,
+        ObjectColor,
+        PhongShading
+    }
+
     public class SceneController
     {
         private Canvas screen;
@@ -80,6 +87,12 @@ namespace _3D_graphics.Controller
         public void ChangeToTPPCamera()
         {
             renderController.Camera.ChangeToTPPCamera();
+            RequestRender();
+        }
+
+        public void SetRenderingType(RenderingType renderType)
+        {
+            renderController.SetRenderingType(renderType);
             RequestRender();
         }
     }
