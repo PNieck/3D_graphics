@@ -35,8 +35,12 @@ namespace _3D_graphics
             CameraSellector = new ToolStripDropDownButton();
             StaticCameraButton = new ToolStripMenuItem();
             CarFollowingCameraButton = new ToolStripMenuItem();
-            CanvasWidget = new PictureBox();
             tPPCameraToolStripMenuItem = new ToolStripMenuItem();
+            CanvasWidget = new PictureBox();
+            RenderingDropDownButton = new ToolStripDropDownButton();
+            edgesToolStripMenuItem = new ToolStripMenuItem();
+            modelColorToolStripMenuItem = new ToolStripMenuItem();
+            phongToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CanvasWidget).BeginInit();
             SuspendLayout();
@@ -44,7 +48,7 @@ namespace _3D_graphics
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { CameraSellector });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { CameraSellector, RenderingDropDownButton });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(800, 27);
@@ -75,6 +79,13 @@ namespace _3D_graphics
             CarFollowingCameraButton.Text = "Car following";
             CarFollowingCameraButton.Click += CarFollowingCameraButton_Click;
             // 
+            // tPPCameraToolStripMenuItem
+            // 
+            tPPCameraToolStripMenuItem.Name = "tPPCameraToolStripMenuItem";
+            tPPCameraToolStripMenuItem.Size = new Size(224, 26);
+            tPPCameraToolStripMenuItem.Text = "TPP camera";
+            tPPCameraToolStripMenuItem.Click += tPPCameraToolStripMenuItem_Click;
+            // 
             // CanvasWidget
             // 
             CanvasWidget.Dock = DockStyle.Fill;
@@ -84,12 +95,36 @@ namespace _3D_graphics
             CanvasWidget.TabIndex = 1;
             CanvasWidget.TabStop = false;
             // 
-            // tPPCameraToolStripMenuItem
+            // RenderingDropDownButton
             // 
-            tPPCameraToolStripMenuItem.Name = "tPPCameraToolStripMenuItem";
-            tPPCameraToolStripMenuItem.Size = new Size(224, 26);
-            tPPCameraToolStripMenuItem.Text = "TPP camera";
-            tPPCameraToolStripMenuItem.Click += tPPCameraToolStripMenuItem_Click;
+            RenderingDropDownButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            RenderingDropDownButton.DropDownItems.AddRange(new ToolStripItem[] { edgesToolStripMenuItem, modelColorToolStripMenuItem, phongToolStripMenuItem });
+            RenderingDropDownButton.Image = (Image)resources.GetObject("RenderingDropDownButton.Image");
+            RenderingDropDownButton.ImageTransparentColor = Color.Magenta;
+            RenderingDropDownButton.Name = "RenderingDropDownButton";
+            RenderingDropDownButton.Size = new Size(91, 24);
+            RenderingDropDownButton.Text = "Rendering";
+            // 
+            // edgesToolStripMenuItem
+            // 
+            edgesToolStripMenuItem.Name = "edgesToolStripMenuItem";
+            edgesToolStripMenuItem.Size = new Size(224, 26);
+            edgesToolStripMenuItem.Text = "Edges";
+            edgesToolStripMenuItem.Click += edgesToolStripMenuItem_Click;
+            // 
+            // modelColorToolStripMenuItem
+            // 
+            modelColorToolStripMenuItem.Name = "modelColorToolStripMenuItem";
+            modelColorToolStripMenuItem.Size = new Size(224, 26);
+            modelColorToolStripMenuItem.Text = "Object color";
+            modelColorToolStripMenuItem.Click += modelColorToolStripMenuItem_Click;
+            // 
+            // phongToolStripMenuItem
+            // 
+            phongToolStripMenuItem.Name = "phongToolStripMenuItem";
+            phongToolStripMenuItem.Size = new Size(224, 26);
+            phongToolStripMenuItem.Text = "Phong shading";
+            phongToolStripMenuItem.Click += phongToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -116,5 +151,9 @@ namespace _3D_graphics
         private ToolStripMenuItem StaticCameraButton;
         private ToolStripMenuItem CarFollowingCameraButton;
         private ToolStripMenuItem tPPCameraToolStripMenuItem;
+        private ToolStripDropDownButton RenderingDropDownButton;
+        private ToolStripMenuItem edgesToolStripMenuItem;
+        private ToolStripMenuItem modelColorToolStripMenuItem;
+        private ToolStripMenuItem phongToolStripMenuItem;
     }
 }

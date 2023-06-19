@@ -53,5 +53,14 @@ namespace _3D_graphics
         {
             sceneController.ChangeToTPPCamera();
         }
+
+        private void modelColorToolStripMenuItem_Click(object sender, EventArgs e)
+            => sceneController.SetRenderingType(RenderingType.ObjectColor);
+
+        private void edgesToolStripMenuItem_Click(object sender, EventArgs e)
+            => sceneController.SetRenderingType(RenderingType.Edges);
+
+        private void phongToolStripMenuItem_Click(object sender, EventArgs e)
+            => sceneController.SetRenderingType(RenderingType.PhongShading);
     }
 }
