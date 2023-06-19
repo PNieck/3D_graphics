@@ -3,11 +3,11 @@ using System.Numerics;
 
 namespace _3D_graphics.Model.Camera
 {
-    public class TPPCamera : BaseCamera, ICamera
+    public class TPPCamera : Camera, ICamera
     {
-        private static readonly Vector3 CameraPositionOffset = new Vector3(0, 0, 3);
-        private const float CameraTargetMultiplier = 15f;
-        private const float CameraPositionMultiplier = -2f;
+        private static readonly Vector3 CameraPositionOffset = new Vector3(0, 0, 300);
+        private const float CameraTargetMultiplier = 40f;
+        private const float CameraPositionMultiplier = -10f;
 
         public TPPCamera(Car car, int width, int height, Angle fov):
             base(CalculateCameraPosition(car.Coordinates, car.VectorToFront), CalculateCameraTarget(car.Coordinates, car.VectorToFront), width, height, fov)

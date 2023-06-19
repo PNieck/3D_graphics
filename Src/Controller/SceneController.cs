@@ -19,7 +19,7 @@ namespace _3D_graphics.Controller
         {
             screen = new Canvas(width, height);
             
-            InitSceneContoller initScene = new InitSceneContoller();
+            InitSceneController initScene = new InitSceneController();
             scene = initScene.GetScene();
 
             renderController = new RenderController(width, height, scene.car);
@@ -41,7 +41,7 @@ namespace _3D_graphics.Controller
             sceneChanged?.Invoke(screen);
         }
 
-        public void MoveCarForeward()
+        public void MoveCarForward()
         {
             scene.car.GoForeward();
             RequestRender();

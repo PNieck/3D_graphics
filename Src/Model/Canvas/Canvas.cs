@@ -19,7 +19,7 @@ namespace _3D_graphics.Model.Canvas
         public IPixelPainter GetPixelPainter() => new CanvasPixelPainter(_bitmap);
 
         /* TODO: don't create new item */
-        public ILinePainter GetEdgePainter() => new CanvasEdgePanter(_bitmap);
+        public ILinePainter GetEdgePainter() => new CanvasEdgePainter(_bitmap);
 
         public void Apply(PictureBox pictureBox)
         {
@@ -76,13 +76,13 @@ namespace _3D_graphics.Model.Canvas
                    actY >= 0 && actY < _bitmap.Height;
         }
 
-        private class CanvasEdgePanter: ILinePainter
+        private class CanvasEdgePainter: ILinePainter
         {
             private Graphics _graphics;
             private readonly float _xChange;
             private readonly float _yChange;
 
-            public CanvasEdgePanter(Bitmap bitmap)
+            public CanvasEdgePainter(Bitmap bitmap)
             {
                 _graphics = Graphics.FromImage(bitmap);
                 _xChange = bitmap.Width / 2;

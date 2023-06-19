@@ -7,11 +7,11 @@ namespace Tests.Models
     {
         [Theory]
         [MemberData(nameof(VertexDataGenerator))]
-        public void SimpleVertexTransnformation(Vertex v)
+        public void SimpleVertexTransformation(Vertex v)
         {
             Matrix4x4 M = Matrix4x4.CreateTranslation(Vector3.Zero);
 
-            Vertex result = v.Tranform(M);
+            Vertex result = v.Transform(M);
 
             Assert.True(EqualVertex(v, result));
         }

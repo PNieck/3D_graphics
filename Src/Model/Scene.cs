@@ -9,6 +9,7 @@ namespace _3D_graphics.Model
         List<ISourceOfLight> _lights;
 
         public IReadOnlyList<RenderObject> renderObjects { get { return _renderObjects.AsReadOnly(); } }
+        public IReadOnlyList<ISourceOfLight> lights { get { return _lights.AsReadOnly(); } }
 
 
         public Scene(IEnumerable<RenderObject> renderObjects, IEnumerable<ISourceOfLight> lights, Car car)
@@ -19,7 +20,7 @@ namespace _3D_graphics.Model
 
             if (!_renderObjects.Contains(this.car))
             {
-                _renderObjects.Add(this.car);
+                _renderObjects.Insert(0, this.car);
             }
         }
     }

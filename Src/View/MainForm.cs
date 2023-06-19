@@ -25,7 +25,7 @@ namespace _3D_graphics
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                    sceneController.MoveCarForeward();
+                    sceneController.MoveCarForward();
                     break;
                 case Keys.Down:
                     sceneController.MoveCarBackward();

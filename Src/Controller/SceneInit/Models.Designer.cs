@@ -79,5 +79,15 @@ namespace _3D_graphics.Controller.SceneInit {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sphere {
+            get {
+                object obj = ResourceManager.GetObject("sphere", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

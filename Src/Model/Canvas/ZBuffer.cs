@@ -16,7 +16,7 @@
             => new ZBufferPainter(canvas.GetPixelPainter(), zbuffer);
 
 
-        private class ZBufferPainter: IPixelPainterWithBuffer
+        private class ZBufferPainter : IPixelPainterWithBuffer
         {
             private float[,] zBuffer;
             private IPixelPainter screenPainter;
@@ -24,9 +24,9 @@
             private int xChange { get { return zBuffer.GetLength(0) / 2; } }
             private int yChange { get { return zBuffer.GetLength(1) / 2; } }
 
-            public ZBufferPainter(IPixelPainter painter, float[,] zbuffer)
+            public ZBufferPainter(IPixelPainter painter, float[,] zBuffer)
             {
-                zBuffer = zbuffer;
+                this.zBuffer = zBuffer;
                 screenPainter = painter;
             }
 
@@ -38,7 +38,7 @@
                 {
                     for (int col = 0; col < zBuffer.GetLength(1); col++)
                     {
-                        zBuffer[row, col] = 0;
+                        zBuffer[row, col] = float.PositiveInfinity;
                     }
                 }
             }
@@ -51,7 +51,7 @@
                 if (CoordinatesInRange(actX, actY))
                 {
                     screenPainter.SetPixel(x, y, color);
-                    zBuffer[RecalculateX(x), RecalculateY(y)] = 0;
+                    zBuffer[actX, actY] = 0;
                 }
             }
 
@@ -72,7 +72,7 @@
                 if (!CoordinatesInRange(actX, actY))
                     return false;
 
-                return zBuffer[actX, actY] < z;
+                return zBuffer[actX, actY] > z;
             }
 
 

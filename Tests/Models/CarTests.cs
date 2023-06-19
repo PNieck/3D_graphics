@@ -10,7 +10,7 @@ namespace Tests.Models
 
         public CarTests()
         {
-            InitSceneContoller controller = new InitSceneContoller();
+            InitSceneController controller = new InitSceneController();
             _car = controller.GetCarObject();
         }
 

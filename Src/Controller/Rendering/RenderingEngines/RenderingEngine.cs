@@ -10,7 +10,7 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines
         
         protected Canvas _canvas;
 
-        public RenderingEngine(int width, int height)
+        protected RenderingEngine(int width, int height)
         {
             _canvas = new Canvas(width, height);
         }

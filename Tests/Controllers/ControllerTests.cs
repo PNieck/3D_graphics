@@ -5,11 +5,11 @@ namespace Tests.Controllers
 {
     public class InitSceneContollerTests
     {
-        private InitSceneContoller _controller;
+        private InitSceneController _controller;
 
         public InitSceneContollerTests()
         {
-            _controller = new InitSceneContoller();
+            _controller = new InitSceneController();
         }
 
         [Fact]
