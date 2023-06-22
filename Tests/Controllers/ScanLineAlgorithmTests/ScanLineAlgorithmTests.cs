@@ -1,6 +1,6 @@
 ﻿using _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators;
-using _3D_graphics.Controller.Rendering.RenderingEngines.ShadingAlgorithms;
-using _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling;
+using _3D_graphics.Controller.Rendering.RenderingPipeline.RenderHandlers.TriangleHandlers.ShadingAlgorithms;
+using _3D_graphics.Controller.Rendering.RenderingPipeline.RenderHandlers.TriangleHandlers.TrianglesFilling;
 using _3D_graphics.Model.Canvas;
 using _3D_graphics.Model.Primitives;
 using System.Drawing;

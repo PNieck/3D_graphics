@@ -1,6 +1,6 @@
 ﻿namespace _3D_graphics.Model.Canvas
 {
-    public interface IPixelPainterWithBuffer : IPixelPainter
+    public interface IZBufferedPixelPainter : IPixelPainter
     {
         public bool ShouldDraw(int x, int y, float z);
 

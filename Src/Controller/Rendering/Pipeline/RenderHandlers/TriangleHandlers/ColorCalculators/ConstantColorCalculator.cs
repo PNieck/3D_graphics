@@ -1,11 +1,11 @@
 ﻿using _3D_graphics.Model;
 using _3D_graphics.Model.Primitives;
 
-namespace _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators
+namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ColorCalculators
 {
     public class ConstColorCalculator : ColorCalculator
     {
-        public ConstColorCalculator(RenderObject renderObject):
+        public ConstColorCalculator(RenderObject renderObject) :
             base(renderObject.color)
         { }
 

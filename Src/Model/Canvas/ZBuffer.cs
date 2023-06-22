@@ -2,24 +2,27 @@
 {
     public class ZBuffer
     {
-        private float[,] zbuffer;
-        private Canvas canvas;
+        private readonly float[,] zbuffer;
+        public Canvas Canvas { get; private set; }
 
         public ZBuffer(Canvas canvas)
         {
             zbuffer = new float[canvas.Width, canvas.Height];
-            this.canvas = canvas;
+            Canvas = canvas;
         }
 
         /* TODO: don't create new item */
-        public IPixelPainterWithBuffer GetPainter()
-            => new ZBufferPainter(canvas.GetPixelPainter(), zbuffer);
+        public IZBufferedPixelPainter GetPainter()
+            => new ZBufferPainter(Canvas.GetPixelPainter(), zbuffer);
+
+        public ILinePainter GetEdgePainter()
+            => Canvas.GetEdgePainter();
 
 
-        private class ZBufferPainter : IPixelPainterWithBuffer
+        private class ZBufferPainter : IZBufferedPixelPainter
         {
-            private float[,] zBuffer;
-            private IPixelPainter screenPainter;
+            private readonly float[,] zBuffer;
+            private readonly IPixelPainter screenPainter;
 
             private int xChange { get { return zBuffer.GetLength(0) / 2; } }
             private int yChange { get { return zBuffer.GetLength(1) / 2; } }
@@ -30,9 +33,9 @@
                 screenPainter = painter;
             }
 
-            public void Clear(Color color)
+            public void Clear()
             {
-                screenPainter.Clear(color);
+                screenPainter.Clear();
 
                 for (int row = 0; row < zBuffer.GetLength(0); row++)
                 {
@@ -42,6 +45,9 @@
                     }
                 }
             }
+
+            public void Fill(Color color)
+                => screenPainter.Fill(color);
 
             public void SetPixel(int x, int y, Color color)
             {
