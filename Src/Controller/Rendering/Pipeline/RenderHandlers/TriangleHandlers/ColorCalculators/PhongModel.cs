@@ -3,7 +3,7 @@ using _3D_graphics.Model.Primitives;
 using _3D_graphics.Model.SourceOfLight;
 using System.Numerics;
 
-namespace _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators
+namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ColorCalculators
 {
     internal class PhongModel : ColorCalculator
     {
@@ -17,7 +17,7 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators
         private IEnumerable<ISourceOfLight> sourcesOfLights;
         private ICamera camera;
 
-        public PhongModel(Color color, IEnumerable<ISourceOfLight> sourcesOfLights, ICamera camera):
+        public PhongModel(Color color, IEnumerable<ISourceOfLight> sourcesOfLights, ICamera camera) :
             base(color)
         {
             colorRations = new ColorRatios(color);
@@ -26,7 +26,7 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators
             this.camera = camera;
         }
 
-        public PhongModel(): base(Color.Black)
+        public PhongModel() : base(Color.Black)
         { }
 
         public override Color GetColor(Vertex worldCoordinates)
@@ -49,7 +49,7 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators
 
                 if (viewerToReflectionCos > 0.0f)
                     resultColorRations += AMBIENT_REFLECTION_CONST * mixedColorRatios * MathF.Pow(viewerToReflectionCos, SHINESS_CONST);
-                    
+
             }
 
             return resultColorRations.GetColor();

@@ -6,6 +6,8 @@
 
         public Color GetPixel(int x, int y);
 
-        public void Clear(Color color);
+        public void Fill(Color color);
+
+        public void Clear();
     }
 }

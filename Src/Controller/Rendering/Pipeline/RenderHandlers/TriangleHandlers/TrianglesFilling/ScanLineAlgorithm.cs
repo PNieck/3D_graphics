@@ -1,22 +1,22 @@
-﻿using _3D_graphics.Controller.Rendering.RenderingEngines.ShadingAlgorithms;
+﻿using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ShadingAlgorithms;
 using _3D_graphics.Model.Camera;
 using _3D_graphics.Model.Canvas;
 using _3D_graphics.Model.Primitives;
 using System.Numerics;
 
-namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
+namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.TrianglesFilling
 {
     public class ScanLineAlgorithm
     {
-        private IPixelPainterWithBuffer painter;
+        private IZBufferedPixelPainter painter;
         private ICamera camera;
         private Shading shadingAlgorithm;
 
-        public ScanLineAlgorithm(ZBuffer zBuffer, ICamera camera, Shading shading)
+        public ScanLineAlgorithm(IZBufferedPixelPainter painter, ICamera camera, Shading shadingAlgorithm)
         {
-            painter = zBuffer.GetPainter();
+            this.painter = painter;
             this.camera = camera;
-            shadingAlgorithm = shading;
+            this.shadingAlgorithm = shadingAlgorithm;
         }
 
         public void DrawTriangle(Triangle triangle)
@@ -99,8 +99,8 @@ namespace _3D_graphics.Controller.Rendering.RenderingEngines.TrianglesFilling
 
         private void DrawHorizontalLine(float x1, float x2, int y, Triangle actTriangle)
         {
-            int actX = (int)MathF.Round(x1);
-            int stopX = (int)MathF.Round(x2);
+            int actX = (int)MathF.Floor(x1);
+            int stopX = (int)MathF.Ceiling(x2) + 1;
 
             while (actX <= stopX)
             {

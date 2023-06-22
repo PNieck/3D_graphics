@@ -1,8 +1,8 @@
-﻿using _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators;
+﻿using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ColorCalculators;
 using _3D_graphics.Model.Primitives;
 using System.Numerics;
 
-namespace _3D_graphics.Controller.Rendering.RenderingEngines.ShadingAlgorithms
+namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ShadingAlgorithms
 {
     public abstract class Shading
     {

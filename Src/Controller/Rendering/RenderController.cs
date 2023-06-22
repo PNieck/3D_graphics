@@ -1,4 +1,4 @@
-﻿using _3D_graphics.Controller.Rendering.RenderingEngines;
+﻿using _3D_graphics.Controller.Rendering.Pipeline;
 using _3D_graphics.Model;
 using _3D_graphics.Model.Camera;
 using _3D_graphics.Model.Canvas;
@@ -7,8 +7,10 @@ namespace _3D_graphics.Controller.Rendering
 {
     public class RenderController
     {
-        private CameraController _cameraController;
-        private RenderingEngine _renderEngine;
+        private readonly CameraController _cameraController;
+        private RenderingPipeline _pipeline;
+
+        private readonly RenderingPipelineFactory _pipelineFactory;
 
         private readonly int windowWidth;
         private readonly int windowHeight;
@@ -21,36 +23,19 @@ namespace _3D_graphics.Controller.Rendering
             this.windowHeight = windowHeight;
 
             _cameraController = new CameraController(car, windowWidth, windowHeight);
-            _renderEngine = new PhongRendering(windowWidth, windowHeight);
+            
+            _pipelineFactory = new RenderingPipelineFactory(windowWidth, windowHeight);
+            _pipeline = _pipelineFactory.GetPipeline(RenderingType.PhongShading);
         }
 
         public Canvas RenderScene(Scene scene)
         {
             ICamera camera = _cameraController.GetCamera();
-            return _renderEngine.RenderScene(scene, camera);
+            return _pipeline.RenderScene(scene, camera);
         }
         public void SetRenderingType(RenderingType renderType)
         {
-            switch (renderType)
-            {
-                case RenderingType.Edges:
-                    if (_renderEngine is not EdgesRendering)
-                        _renderEngine = new EdgesRendering(windowWidth, windowHeight);
-                    break;
-
-                case RenderingType.ObjectColor:
-                    if (_renderEngine is not ObjectColorRendering)
-                        _renderEngine = new ObjectColorRendering(windowWidth, windowHeight);
-                    break;
-
-                case RenderingType.PhongShading:
-                    if (_renderEngine is not PhongRendering)
-                        _renderEngine = new PhongRendering(windowWidth, windowHeight);
-                    break;
-
-                default:
-                    throw new Exception("Unknown rendering type");
-            }
+            _pipeline = _pipelineFactory.GetPipeline(renderType);
         }
     }
 }

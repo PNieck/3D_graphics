@@ -38,12 +38,16 @@ namespace _3D_graphics.Model.Canvas
                 _bitmap = bitmap;
             }
 
-            public void Clear(Color color)
+            public void Clear()
             {
-                using (Graphics g = Graphics.FromImage(_bitmap))
-                {
-                    g.Clear(color);
-                }
+                using Graphics g = Graphics.FromImage(_bitmap);
+                g.Clear(Color.White);
+            }
+
+            public void Fill(Color color)
+            {
+                using Graphics g = Graphics.FromImage(_bitmap);
+                g.Clear(color);
             }
 
             public void SetPixel(int x, int y, Color color)
