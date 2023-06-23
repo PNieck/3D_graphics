@@ -8,6 +8,8 @@ namespace _3D_graphics.Model.Camera
     {
         public Vector3 Position { get; }
 
+        public Vector3 LookingDirection { get; }
+
         public Matrix4x4 GetCameraMatrix();
 
         public Vector3 Project(Vector3 worldVector3);

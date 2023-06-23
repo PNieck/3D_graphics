@@ -26,6 +26,8 @@ namespace _3D_graphics.Model.Camera
 
         public Vector3 Position { get { return _position; } }
 
+        public Vector3 LookingDirection { get { return Vector3.Normalize(_target - _position); } }
+
         public Camera(Vector3 coordinates, Vector3 cameraTarget, int width, int height, Angle fov)
         {
             _fov = fov;

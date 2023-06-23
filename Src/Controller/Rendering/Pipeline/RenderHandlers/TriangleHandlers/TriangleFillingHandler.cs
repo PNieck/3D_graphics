@@ -13,7 +13,7 @@ namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHand
             this.shading = shading;
         }
 
-        protected override void Action(TriangleHandlerContext context)
+        public override void Handle(TriangleHandlerContext context)
         {
             shading.SetTriangle(context.Triangle);
             shading.SetBaseColor(context.RenderObject.color);
@@ -23,6 +23,8 @@ namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHand
                                                   shading);
 
             algorithm.DrawTriangle(context.Triangle);
+
+            InvokeNextHandler(context);
         }
     }
 }

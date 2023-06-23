@@ -1,7 +1,4 @@
-﻿using _3D_graphics.Model.Camera;
-using _3D_graphics.Model.Canvas;
-using _3D_graphics.Model.Primitives;
-using System.Drawing;
+﻿using _3D_graphics.Model.Canvas;
 using System.Numerics;
 
 namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers
@@ -15,7 +12,7 @@ namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHand
             this.pen = pen;
         }
 
-        protected override void Action(TriangleHandlerContext context)
+        public override void Handle(TriangleHandlerContext context)
         {
             ILinePainter lp = context.DrawingBuffer.GetEdgePainter();
 
@@ -26,6 +23,8 @@ namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHand
             DrawEdge(v1, v2, lp);
             DrawEdge(v1, v3, lp);
             DrawEdge(v2, v3, lp);
+
+            InvokeNextHandler(context);
         }
 
         private void DrawEdge(Vector3 v1, Vector3 v2, ILinePainter lp) =>
