@@ -9,10 +9,12 @@
             backgroundColor = background;
         }
 
-        protected override void Action(SceneHandlerContext context)
+        public override void Handle(SceneHandlerContext context)
         {
             var painter = context.DrawingBuffer.GetPainter();
             painter.Fill(backgroundColor);
+
+            InvokeNextHandler(context);
         }
     }
 }

@@ -19,24 +19,26 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
         {
             var sceneToObject = new SceneToObjectHandler();
             var objectToTriangle = new ObjectToTriangleHandler();
+            var backFaceCulling = new BackFaceCullingHandler();
 
             sceneToObject.SetNextHandler(objectToTriangle);
+            objectToTriangle.SetNextHandler(backFaceCulling);
 
             switch (renderType)
             {
                 case RenderingType.Edges:
                     var edgesDrawing = new EdgesDrawingHandler(Pens.Black);
-                    objectToTriangle.SetNextHandler(edgesDrawing);
+                    backFaceCulling.SetNextHandler(edgesDrawing);
                     break;
 
                 case RenderingType.ObjectColor:
                     var objectsDrawing = new ObjectColorDrawingHandler();
-                    objectToTriangle.SetNextHandler(objectsDrawing);
+                    backFaceCulling.SetNextHandler(objectsDrawing);
                     break;
 
                 case RenderingType.PhongShading:
                     var phongDrawing = new PhongDrawingHandler();
-                    objectToTriangle.SetNextHandler(phongDrawing);
+                    backFaceCulling.SetNextHandler(phongDrawing);
                     break;
 
                 default:

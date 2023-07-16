@@ -13,12 +13,12 @@ namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHand
             phongColorCalculator = (PhongModel)this.shading.colorCalculator;
         }
 
-        protected override void Action(TriangleHandlerContext context)
+        public override void Handle(TriangleHandlerContext context)
         {
             phongColorCalculator.SetCamera(context.Camera);
             phongColorCalculator.SetLightSources(context.Scene.lights);
 
-            base.Action(context);
+            base.Handle(context);
         }
     }
 }
