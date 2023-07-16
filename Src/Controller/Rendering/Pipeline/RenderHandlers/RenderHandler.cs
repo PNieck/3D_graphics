@@ -10,14 +10,10 @@
         public void SetNextHandler(IRenderHandler<T> handler)
             => nextHandler = handler;
 
-        protected abstract void Action(T context);
+        public abstract void Handle(T context);
 
 
-        public void Handle(T context)
-        {
-            Action(context);
-
-            nextHandler?.Handle(context);
-        }
+        public void InvokeNextHandler(T context)
+            => nextHandler?.Handle(context);
     }
 }
