@@ -1,7 +1,7 @@
 ﻿using _3D_graphics.Model;
 using _3D_graphics.Model.Primitives;
 
-namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ColorCalculators
+namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.ColorCalculators
 {
     public class ConstColorCalculator : ColorCalculator
     {

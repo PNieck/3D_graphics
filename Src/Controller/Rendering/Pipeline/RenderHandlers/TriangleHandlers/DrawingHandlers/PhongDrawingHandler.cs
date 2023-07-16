@@ -1,7 +1,7 @@
-﻿using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ColorCalculators;
-using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ShadingAlgorithms;
+﻿using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.ColorCalculators;
+using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.ShadingAlgorithms;
 
-namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers
+namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers
 {
     public class PhongDrawingHandler : TriangleFillingHandler
     {
@@ -10,7 +10,7 @@ namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHand
         public PhongDrawingHandler() :
             base(new PhongShading(new PhongModel()))
         {
-            phongColorCalculator = (PhongModel)this.shading.colorCalculator;
+            phongColorCalculator = (PhongModel)shading.colorCalculator;
         }
 
         public override void Handle(TriangleHandlerContext context)

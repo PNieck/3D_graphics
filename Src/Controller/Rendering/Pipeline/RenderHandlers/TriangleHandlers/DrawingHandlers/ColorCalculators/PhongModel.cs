@@ -3,7 +3,7 @@ using _3D_graphics.Model.Primitives;
 using _3D_graphics.Model.SourceOfLight;
 using System.Numerics;
 
-namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ColorCalculators
+namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.ColorCalculators
 {
     internal class PhongModel : ColorCalculator
     {

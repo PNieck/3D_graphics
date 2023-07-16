@@ -1,17 +1,17 @@
 ﻿// Ignore Spelling: Gouraud
 
-using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ColorCalculators;
+using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.ColorCalculators;
 using _3D_graphics.Model.Primitives;
 using System.Numerics;
 
-namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ShadingAlgorithms
+namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.ShadingAlgorithms
 {
     public class GouraudShading : InterpolationBasedShading
     {
         private ColorRatios vertex1Color;
         private ColorRatios vertex2Color;
         private ColorRatios vertex3Color;
-        
+
 
         public GouraudShading(ColorCalculator colorCalculator) : base(colorCalculator)
         { }
