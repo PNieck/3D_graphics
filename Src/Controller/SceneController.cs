@@ -11,7 +11,8 @@ namespace _3D_graphics.Controller
     {
         Edges,
         ObjectColor,
-        PhongShading
+        PhongShading,
+        GouraudShading
     }
 
     public enum CameraType

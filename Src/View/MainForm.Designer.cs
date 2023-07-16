@@ -40,6 +40,7 @@ namespace _3D_graphics
             edgesToolStripMenuItem = new ToolStripMenuItem();
             modelColorToolStripMenuItem = new ToolStripMenuItem();
             phongToolStripMenuItem = new ToolStripMenuItem();
+            gourandShadingToolStripMenuItem = new ToolStripMenuItem();
             CanvasWidget = new PictureBox();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CanvasWidget).BeginInit();
@@ -68,28 +69,28 @@ namespace _3D_graphics
             // StaticCameraButton
             // 
             StaticCameraButton.Name = "StaticCameraButton";
-            StaticCameraButton.Size = new Size(224, 26);
+            StaticCameraButton.Size = new Size(182, 26);
             StaticCameraButton.Text = "Static camera";
             StaticCameraButton.Click += StaticCameraButton_Click;
             // 
             // CarFollowingCameraButton
             // 
             CarFollowingCameraButton.Name = "CarFollowingCameraButton";
-            CarFollowingCameraButton.Size = new Size(224, 26);
+            CarFollowingCameraButton.Size = new Size(182, 26);
             CarFollowingCameraButton.Text = "Car following";
             CarFollowingCameraButton.Click += CarFollowingCameraButton_Click;
             // 
             // TPPCameraToolStripMenuItem
             // 
             TPPCameraToolStripMenuItem.Name = "TPPCameraToolStripMenuItem";
-            TPPCameraToolStripMenuItem.Size = new Size(224, 26);
+            TPPCameraToolStripMenuItem.Size = new Size(182, 26);
             TPPCameraToolStripMenuItem.Text = "TPP camera";
             TPPCameraToolStripMenuItem.Click += TPPCameraToolStripMenuItem_Click;
             // 
             // RenderingDropDownButton
             // 
             RenderingDropDownButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            RenderingDropDownButton.DropDownItems.AddRange(new ToolStripItem[] { edgesToolStripMenuItem, modelColorToolStripMenuItem, phongToolStripMenuItem });
+            RenderingDropDownButton.DropDownItems.AddRange(new ToolStripItem[] { edgesToolStripMenuItem, modelColorToolStripMenuItem, gourandShadingToolStripMenuItem, phongToolStripMenuItem });
             RenderingDropDownButton.Image = (Image)resources.GetObject("RenderingDropDownButton.Image");
             RenderingDropDownButton.ImageTransparentColor = Color.Magenta;
             RenderingDropDownButton.Name = "RenderingDropDownButton";
@@ -99,23 +100,30 @@ namespace _3D_graphics
             // edgesToolStripMenuItem
             // 
             edgesToolStripMenuItem.Name = "edgesToolStripMenuItem";
-            edgesToolStripMenuItem.Size = new Size(190, 26);
+            edgesToolStripMenuItem.Size = new Size(224, 26);
             edgesToolStripMenuItem.Text = "Edges";
             edgesToolStripMenuItem.Click += edgesToolStripMenuItem_Click;
             // 
             // modelColorToolStripMenuItem
             // 
             modelColorToolStripMenuItem.Name = "modelColorToolStripMenuItem";
-            modelColorToolStripMenuItem.Size = new Size(190, 26);
+            modelColorToolStripMenuItem.Size = new Size(224, 26);
             modelColorToolStripMenuItem.Text = "Object color";
             modelColorToolStripMenuItem.Click += modelColorToolStripMenuItem_Click;
             // 
             // phongToolStripMenuItem
             // 
             phongToolStripMenuItem.Name = "phongToolStripMenuItem";
-            phongToolStripMenuItem.Size = new Size(190, 26);
+            phongToolStripMenuItem.Size = new Size(224, 26);
             phongToolStripMenuItem.Text = "Phong shading";
             phongToolStripMenuItem.Click += phongToolStripMenuItem_Click;
+            // 
+            // gourandShadingToolStripMenuItem
+            // 
+            gourandShadingToolStripMenuItem.Name = "gourandShadingToolStripMenuItem";
+            gourandShadingToolStripMenuItem.Size = new Size(224, 26);
+            gourandShadingToolStripMenuItem.Text = "Gourand shading";
+            gourandShadingToolStripMenuItem.Click += gourandShadingToolStripMenuItem_Click;
             // 
             // CanvasWidget
             // 
@@ -155,5 +163,6 @@ namespace _3D_graphics
         private ToolStripMenuItem edgesToolStripMenuItem;
         private ToolStripMenuItem modelColorToolStripMenuItem;
         private ToolStripMenuItem phongToolStripMenuItem;
+        private ToolStripMenuItem gourandShadingToolStripMenuItem;
     }
 }

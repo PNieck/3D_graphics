@@ -1,5 +1,6 @@
 ﻿using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers;
-using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers;
+using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.Optimizations;
+using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers;
 using _3D_graphics.Model.Canvas;
 
 namespace _3D_graphics.Controller.Rendering.Pipeline
@@ -39,6 +40,11 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
                 case RenderingType.PhongShading:
                     var phongDrawing = new PhongDrawingHandler();
                     backFaceCulling.SetNextHandler(phongDrawing);
+                    break;
+
+                case RenderingType.GouraudShading:
+                    var gourandDrawing = new GouraudDrawingHandler();
+                    backFaceCulling.SetNextHandler(gourandDrawing);
                     break;
 
                 default:

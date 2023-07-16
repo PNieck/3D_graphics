@@ -1,7 +1,7 @@
 ﻿using _3D_graphics.Model.Primitives;
 using System.Numerics;
 
-namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers
+namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.Optimizations
 {
     public class BackFaceCullingHandler : RenderHandler<TriangleHandlerContext>
     {

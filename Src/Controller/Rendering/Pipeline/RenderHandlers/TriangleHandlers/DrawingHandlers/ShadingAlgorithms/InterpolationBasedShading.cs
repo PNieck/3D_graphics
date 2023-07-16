@@ -1,19 +1,21 @@
-﻿// Ignore Spelling: Phong
-
-using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ColorCalculators;
+﻿using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.ColorCalculators;
 using _3D_graphics.Model.Primitives;
 using System.Numerics;
 
-namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ShadingAlgorithms
+namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.ShadingAlgorithms
 {
-    public class PhongShading : Shading
+    public abstract class InterpolationBasedShading : Shading
     {
-        Triangle actTriangle;
+        protected Triangle actTriangle;
 
-        public PhongShading(ColorCalculator colorCalculator) : base(colorCalculator)
+        public InterpolationBasedShading(ColorCalculator colorCalculator) : base(colorCalculator)
         { }
 
-        public override Color GetColor(Vector3 worldCoordinates)
+        public override void SetTriangle(Triangle triangle)
+            => actTriangle = triangle;
+
+
+        protected (float v1, float v2, float v3) InterpolationCoefficients(Vector3 worldCoordinates)
         {
             float coeff1 = TriangleArea(actTriangle.v2.coordinates,
                                         actTriangle.v3.coordinates,
@@ -34,15 +36,8 @@ namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHand
             coeff2 /= sum;
             coeff3 /= sum;
 
-            Vector3 interpolatedNormal = coeff1 * actTriangle.v1.normal +
-                                         coeff2 * actTriangle.v2.normal +
-                                         coeff3 * actTriangle.v3.normal;
-
-            return colorCalculator.GetColor(new Vertex(worldCoordinates, interpolatedNormal));
+            return (coeff1, coeff2, coeff3);
         }
-
-        public override void SetTriangle(Triangle triangle)
-            => actTriangle = triangle;
 
         private static float TriangleArea(Vector3 v1, Vector3 v2, Vector3 v3)
             => Vector3.Cross(v1 - v3, v2 - v3).Length();

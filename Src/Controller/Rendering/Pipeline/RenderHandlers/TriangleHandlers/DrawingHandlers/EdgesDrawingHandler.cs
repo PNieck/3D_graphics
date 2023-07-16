@@ -1,7 +1,7 @@
 ﻿using _3D_graphics.Model.Canvas;
 using System.Numerics;
 
-namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers
+namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers
 {
     public class EdgesDrawingHandler : RenderHandler<TriangleHandlerContext>
     {

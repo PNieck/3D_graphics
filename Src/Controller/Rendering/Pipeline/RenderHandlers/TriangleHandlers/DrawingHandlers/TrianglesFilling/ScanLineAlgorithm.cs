@@ -1,10 +1,10 @@
-﻿using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.ShadingAlgorithms;
+﻿using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.ShadingAlgorithms;
 using _3D_graphics.Model.Camera;
 using _3D_graphics.Model.Canvas;
 using _3D_graphics.Model.Primitives;
 using System.Numerics;
 
-namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.TrianglesFilling
+namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.TrianglesFilling
 {
     public class ScanLineAlgorithm
     {
