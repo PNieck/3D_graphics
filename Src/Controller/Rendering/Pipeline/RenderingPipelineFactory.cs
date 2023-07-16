@@ -42,6 +42,11 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
                     backFaceCulling.SetNextHandler(phongDrawing);
                     break;
 
+                case RenderingType.GouraudShading:
+                    var gourandDrawing = new GouraudDrawingHandler();
+                    backFaceCulling.SetNextHandler(gourandDrawing);
+                    break;
+
                 default:
                     throw new Exception("Unknown render type");
             }

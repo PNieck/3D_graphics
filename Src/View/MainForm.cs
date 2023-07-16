@@ -56,5 +56,8 @@ namespace _3D_graphics
 
         private void phongToolStripMenuItem_Click(object sender, EventArgs e)
             => sceneController.SetRenderingType(RenderingType.PhongShading);
+
+        private void gourandShadingToolStripMenuItem_Click(object sender, EventArgs e)
+            => sceneController.SetRenderingType(RenderingType.GouraudShading);
     }
 }

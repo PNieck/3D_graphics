@@ -3,10 +3,10 @@ using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers
 
 namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers
 {
-    public class PhongDrawingHandler : PhongColorBasedDrawing
+    public class GouraudDrawingHandler : PhongColorBasedDrawing
     {
-        public PhongDrawingHandler() :
-            base(new PhongShading(new PhongModel()))
+        public GouraudDrawingHandler():
+            base(new GouraudShading(new PhongModel()))
         { }
     }
 }
