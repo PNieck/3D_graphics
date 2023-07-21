@@ -2,10 +2,12 @@
 {
     public abstract class RenderHandler<T> : IRenderHandler<T>
     {
+        static private readonly IRenderHandler<T> nullHandler = new NullRenderHandler<T>();
+
         protected IRenderHandler<T> nextHandler;
 
         public RenderHandler()
-            => nextHandler = new NullRenderHandler<T>();
+            => nextHandler = nullHandler;
 
         public void SetNextHandler(IRenderHandler<T> handler)
             => nextHandler = handler;
