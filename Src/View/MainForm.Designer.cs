@@ -39,11 +39,14 @@ namespace _3D_graphics
             RenderingDropDownButton = new ToolStripDropDownButton();
             edgesToolStripMenuItem = new ToolStripMenuItem();
             modelColorToolStripMenuItem = new ToolStripMenuItem();
-            phongToolStripMenuItem = new ToolStripMenuItem();
             gourandShadingToolStripMenuItem = new ToolStripMenuItem();
+            phongToolStripMenuItem = new ToolStripMenuItem();
             CanvasWidget = new PictureBox();
+            statusStrip1 = new StatusStrip();
+            FPSCounter = new ToolStripStatusLabel();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CanvasWidget).BeginInit();
+            statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // toolStrip1
@@ -100,39 +103,55 @@ namespace _3D_graphics
             // edgesToolStripMenuItem
             // 
             edgesToolStripMenuItem.Name = "edgesToolStripMenuItem";
-            edgesToolStripMenuItem.Size = new Size(224, 26);
+            edgesToolStripMenuItem.Size = new Size(205, 26);
             edgesToolStripMenuItem.Text = "Edges";
             edgesToolStripMenuItem.Click += edgesToolStripMenuItem_Click;
             // 
             // modelColorToolStripMenuItem
             // 
             modelColorToolStripMenuItem.Name = "modelColorToolStripMenuItem";
-            modelColorToolStripMenuItem.Size = new Size(224, 26);
+            modelColorToolStripMenuItem.Size = new Size(205, 26);
             modelColorToolStripMenuItem.Text = "Object color";
             modelColorToolStripMenuItem.Click += modelColorToolStripMenuItem_Click;
-            // 
-            // phongToolStripMenuItem
-            // 
-            phongToolStripMenuItem.Name = "phongToolStripMenuItem";
-            phongToolStripMenuItem.Size = new Size(224, 26);
-            phongToolStripMenuItem.Text = "Phong shading";
-            phongToolStripMenuItem.Click += phongToolStripMenuItem_Click;
             // 
             // gourandShadingToolStripMenuItem
             // 
             gourandShadingToolStripMenuItem.Name = "gourandShadingToolStripMenuItem";
-            gourandShadingToolStripMenuItem.Size = new Size(224, 26);
+            gourandShadingToolStripMenuItem.Size = new Size(205, 26);
             gourandShadingToolStripMenuItem.Text = "Gourand shading";
             gourandShadingToolStripMenuItem.Click += gourandShadingToolStripMenuItem_Click;
+            // 
+            // phongToolStripMenuItem
+            // 
+            phongToolStripMenuItem.Name = "phongToolStripMenuItem";
+            phongToolStripMenuItem.Size = new Size(205, 26);
+            phongToolStripMenuItem.Text = "Phong shading";
+            phongToolStripMenuItem.Click += phongToolStripMenuItem_Click;
             // 
             // CanvasWidget
             // 
             CanvasWidget.Dock = DockStyle.Fill;
             CanvasWidget.Location = new Point(0, 27);
             CanvasWidget.Name = "CanvasWidget";
-            CanvasWidget.Size = new Size(800, 423);
+            CanvasWidget.Size = new Size(800, 397);
             CanvasWidget.TabIndex = 1;
             CanvasWidget.TabStop = false;
+            // 
+            // statusStrip1
+            // 
+            statusStrip1.ImageScalingSize = new Size(20, 20);
+            statusStrip1.Items.AddRange(new ToolStripItem[] { FPSCounter });
+            statusStrip1.Location = new Point(0, 424);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(800, 26);
+            statusStrip1.TabIndex = 2;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // FPSCounter
+            // 
+            FPSCounter.Name = "FPSCounter";
+            FPSCounter.Size = new Size(57, 20);
+            FPSCounter.Text = "FPS: ---";
             // 
             // MainForm
             // 
@@ -141,12 +160,15 @@ namespace _3D_graphics
             ClientSize = new Size(800, 450);
             Controls.Add(CanvasWidget);
             Controls.Add(toolStrip1);
+            Controls.Add(statusStrip1);
             Name = "MainForm";
             Text = "Form1";
             KeyDown += MainForm_KeyDown;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)CanvasWidget).EndInit();
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -164,5 +186,7 @@ namespace _3D_graphics
         private ToolStripMenuItem modelColorToolStripMenuItem;
         private ToolStripMenuItem phongToolStripMenuItem;
         private ToolStripMenuItem gourandShadingToolStripMenuItem;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel FPSCounter;
     }
 }

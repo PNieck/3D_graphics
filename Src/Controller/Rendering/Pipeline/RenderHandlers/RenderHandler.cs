@@ -2,18 +2,15 @@
 {
     public abstract class RenderHandler<T> : IRenderHandler<T>
     {
-        protected IRenderHandler<T> nextHandler;
+        public IRenderHandler<T> NextHandler { get; set; }
 
         public RenderHandler()
-            => nextHandler = new NullRenderHandler<T>();
-
-        public void SetNextHandler(IRenderHandler<T> handler)
-            => nextHandler = handler;
+            => NextHandler = NullRenderHandler<T>.GetInstance();
 
         public abstract void Handle(T context);
 
 
         public void InvokeNextHandler(T context)
-            => nextHandler.Handle(context);
+            => NextHandler.Handle(context);
     }
 }

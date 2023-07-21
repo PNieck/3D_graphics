@@ -5,23 +5,19 @@ namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers
 {
     public class SceneToObjectHandler : IRenderHandler<SceneHandlerContext>
     {
-        private IRenderHandler<ObjectHandlerContext>? nextHandler;
+
+
+        public IRenderHandler<ObjectHandlerContext> NextHandler { get; set; }
 
         public SceneToObjectHandler()
-            => nextHandler = null;
-
-        public void SetNextHandler(IRenderHandler<ObjectHandlerContext> handler)
-            => nextHandler = handler;
+            => NextHandler = NullRenderHandler<ObjectHandlerContext>.GetInstance();
 
         public void Handle(SceneHandlerContext context)
         {
-            if (nextHandler == null)
-                return;
-
             foreach (var renderObject in context.Scene.renderObjects)
             {
                 var newContext = new ObjectHandlerContext(context, renderObject);
-                nextHandler.Handle(newContext);
+                NextHandler.Handle(newContext);
             }
         }
     }

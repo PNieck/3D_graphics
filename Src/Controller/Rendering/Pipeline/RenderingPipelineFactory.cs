@@ -1,4 +1,6 @@
 ﻿using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers;
+using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.SceneHandlers;
+using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers;
 using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.Optimizations;
 using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers;
 using _3D_graphics.Model.Canvas;
@@ -7,51 +9,102 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
 {
     public class RenderingPipelineFactory
     {
-        private ZBuffer zBuffer;
+        private readonly ZBuffer zBuffer;
+        private readonly HashSet<SceneFPSHandler> fpsHandlers;
+        public RenderingType RenderingType { get; set; }
 
         public RenderingPipelineFactory(int canvasWidth, int canvasHeight)
         {
             var canvas = new Canvas(canvasWidth, canvasHeight);
             zBuffer = new ZBuffer(canvas);
+
+            RenderingType = RenderingType.PhongShading;
+            fpsHandlers = new HashSet<SceneFPSHandler>();
         }
 
 
-        public RenderingPipeline GetPipeline(RenderingType renderType)
+        public RenderingPipeline GetPipeline()
         {
             var sceneToObject = new SceneToObjectHandler();
             var objectToTriangle = new ObjectToTriangleHandler();
-            var backFaceCulling = new BackFaceCullingHandler();
 
-            sceneToObject.SetNextHandler(objectToTriangle);
-            objectToTriangle.SetNextHandler(backFaceCulling);
+            (var firstSceneHandler, var lastSceneHandler) = GetScenePipeline();
+            (var firstTriangleHandler, _) = GetTrianglePipeline();
 
-            switch (renderType)
+            lastSceneHandler.NextHandler = sceneToObject;
+            sceneToObject.NextHandler = objectToTriangle;
+            objectToTriangle.NextHandler = firstTriangleHandler;
+
+            return new RenderingPipeline(zBuffer, firstSceneHandler);
+        }
+
+        public void AddFpsHandler(SceneFPSHandler handler)
+            => fpsHandlers.Add(handler);
+
+        public void RemoveFpsHandler(SceneFPSHandler handler)
+            => fpsHandlers.Remove(handler);
+
+
+        private (RenderHandler<SceneHandlerContext> first, RenderHandler<SceneHandlerContext> last)
+            GetScenePipeline()
+        {
+            var backgroundPainter = new StaticBackgroundSetter(Color.White);
+            var zBufferReset = new ZBufferReset
             {
-                case RenderingType.Edges:
-                    var edgesDrawing = new EdgesDrawingHandler(Pens.Black);
-                    backFaceCulling.SetNextHandler(edgesDrawing);
-                    break;
+                NextHandler = backgroundPainter
+            };
 
-                case RenderingType.ObjectColor:
-                    var objectsDrawing = new ObjectColorDrawingHandler();
-                    backFaceCulling.SetNextHandler(objectsDrawing);
-                    break;
+            if (fpsHandlers.Count == 0)
+                return (zBufferReset, backgroundPainter);
 
-                case RenderingType.PhongShading:
-                    var phongDrawing = new PhongDrawingHandler();
-                    backFaceCulling.SetNextHandler(phongDrawing);
-                    break;
+            var fpsHandler = CreateFPSCounter();
 
-                case RenderingType.GouraudShading:
-                    var gourandDrawing = new GouraudDrawingHandler();
-                    backFaceCulling.SetNextHandler(gourandDrawing);
-                    break;
+            fpsHandler.NextHandler = zBufferReset;
 
-                default:
-                    throw new Exception("Unknown render type");
+            return (fpsHandler, backgroundPainter);
+        }
+
+        private (RenderHandler<TriangleHandlerContext> first, RenderHandler<TriangleHandlerContext> last)
+            GetTrianglePipeline()
+        {
+            var backFaceCulling = new BackFaceCullingHandler();
+            var drawingHandler = GetDrawingHandler();
+
+            backFaceCulling.NextHandler = drawingHandler;
+
+            return (backFaceCulling, drawingHandler);
+        }
+
+        private RenderHandler<TriangleHandlerContext> GetDrawingHandler()
+        {
+            return RenderingType switch
+            {
+                RenderingType.Edges => new EdgesDrawingHandler(Pens.Black),
+                RenderingType.ObjectColor => new ObjectColorDrawingHandler(),
+                RenderingType.PhongShading => new PhongDrawingHandler(),
+                RenderingType.GouraudShading => new GouraudDrawingHandler(),
+
+                _ => throw new Exception("Unknown render type"),
+            };
+        }
+
+        private FPSCounter CreateFPSCounter()
+        {
+            var fpsHandler = new FPSCounter(fpsHandlers.First());
+
+            bool first = true;
+            foreach (var elem in fpsHandlers)
+            {
+                if (first)
+                {
+                    first = false;
+                    continue;
+                }
+
+                fpsHandler.AddObserver(elem);
             }
 
-            return new RenderingPipeline(zBuffer, sceneToObject);
+            return fpsHandler;
         }
     }
 }
