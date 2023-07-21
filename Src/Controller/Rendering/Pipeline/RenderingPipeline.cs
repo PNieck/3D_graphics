@@ -20,8 +20,6 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
         public Canvas RenderScene(Scene scene, ICamera camera)
         {
             var context = new SceneHandlerContext(scene, camera, drawingBuffer);
-            var painter = drawingBuffer.GetPainter();
-            painter.Clear();
 
             renderHandler.Handle(context);
 

@@ -2,20 +2,15 @@
 {
     public abstract class RenderHandler<T> : IRenderHandler<T>
     {
-        static private readonly IRenderHandler<T> nullHandler = new NullRenderHandler<T>();
-
-        protected IRenderHandler<T> nextHandler;
+        public IRenderHandler<T> NextHandler { get; set; }
 
         public RenderHandler()
-            => nextHandler = nullHandler;
-
-        public void SetNextHandler(IRenderHandler<T> handler)
-            => nextHandler = handler;
+            => NextHandler = NullRenderHandler<T>.GetInstance();
 
         public abstract void Handle(T context);
 
 
         public void InvokeNextHandler(T context)
-            => nextHandler.Handle(context);
+            => NextHandler.Handle(context);
     }
 }

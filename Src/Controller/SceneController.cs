@@ -6,6 +6,7 @@ using _3D_graphics.Model.Canvas;
 namespace _3D_graphics.Controller
 {
     public delegate void SceneChangedHandler(Canvas screen);
+    public delegate void SceneFPSHandler(double fpsCnt);
 
     public enum RenderingType
     {
@@ -46,9 +47,10 @@ namespace _3D_graphics.Controller
         }
 
         public void AddNewSceneObserver(SceneChangedHandler handler)
-        {
-            sceneChanged += handler;
-        }
+            => sceneChanged += handler;
+
+        public void AddNewFpsObserver(SceneFPSHandler handler)
+            => renderController.AddFpsHandler(handler);
 
         public void RequestRender()
         {

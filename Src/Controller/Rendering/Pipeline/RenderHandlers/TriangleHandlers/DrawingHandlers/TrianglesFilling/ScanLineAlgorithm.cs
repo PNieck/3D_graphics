@@ -106,7 +106,7 @@ namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHand
             {
                 float z = CalculateZ(actX, y, actTriangle);
 
-                if (painter.ShouldDraw(actX, y, z))
+                if (painter.CanDraw(actX, y, z))
                 {
                     Vector3 worldCoordinates = camera.Unproject(new Vector3(actX, y, z));
 

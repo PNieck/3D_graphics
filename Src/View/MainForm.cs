@@ -11,6 +11,7 @@ namespace _3D_graphics
         {
             InitializeComponent();
             sceneController = new SceneController(CanvasWidget.Width, CanvasWidget.Height, NewSceneHandler);
+            sceneController.AddNewFpsObserver(FpsHandler);
 
             sceneController.RequestRender();
         }
@@ -18,6 +19,11 @@ namespace _3D_graphics
         void NewSceneHandler(Canvas screen)
         {
             screen.Apply(CanvasWidget);
+        }
+
+        void FpsHandler(double fps)
+        {
+            FPSCounter.Text = string.Format("FPS: {0:N2}", fps);
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)

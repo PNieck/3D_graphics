@@ -36,18 +36,20 @@
             public void Clear()
             {
                 screenPainter.Clear();
-
-                for (int row = 0; row < zBuffer.GetLength(0); row++)
-                {
-                    for (int col = 0; col < zBuffer.GetLength(1); col++)
-                    {
-                        zBuffer[row, col] = float.PositiveInfinity;
-                    }
-                }
+                ResetZValues();
             }
 
             public void Fill(Color color)
                 => screenPainter.Fill(color);
+
+            public void ResetZValues()
+            {
+                for (int row = 0; row < zBuffer.GetLength(0); row++)
+                {
+                    for (int col = 0; col < zBuffer.GetLength(1); col++)
+                        zBuffer[row, col] = float.PositiveInfinity;
+                }
+            }
 
             public void SetPixel(int x, int y, Color color)
             {
@@ -70,7 +72,7 @@
             public Color GetPixel(int x, int y)
                 => screenPainter.GetPixel(x, y);
 
-            public bool ShouldDraw(int x, int y, float z)
+            public bool CanDraw(int x, int y, float z)
             {
                 int actX = RecalculateX(x);
                 int actY = RecalculateY(y);

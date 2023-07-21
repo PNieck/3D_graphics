@@ -19,7 +19,7 @@ namespace _3D_graphics.Controller.Rendering
             _cameraController = new CameraController(car, windowWidth, windowHeight);
             
             _pipelineFactory = new RenderingPipelineFactory(windowWidth, windowHeight);
-            _pipeline = _pipelineFactory.GetPipeline(RenderingType.PhongShading);
+            _pipeline = _pipelineFactory.GetPipeline();
         }
 
         public Canvas RenderScene(Scene scene)
@@ -27,9 +27,17 @@ namespace _3D_graphics.Controller.Rendering
             ICamera camera = _cameraController.GetCamera();
             return _pipeline.RenderScene(scene, camera);
         }
+
         public void SetRenderingType(RenderingType renderType)
         {
-            _pipeline = _pipelineFactory.GetPipeline(renderType);
+            _pipelineFactory.RenderingType = renderType;
+            _pipeline = _pipelineFactory.GetPipeline();
+        }
+
+        public void AddFpsHandler(SceneFPSHandler handler)
+        {
+            _pipelineFactory.AddFpsHandler(handler);
+            _pipeline = _pipelineFactory.GetPipeline();
         }
     }
 }
