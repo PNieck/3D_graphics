@@ -2,10 +2,10 @@
 {
     public abstract class RenderHandler<T> : IRenderHandler<T>
     {
-        protected IRenderHandler<T>? nextHandler;
+        protected IRenderHandler<T> nextHandler;
 
         public RenderHandler()
-            => nextHandler = null;
+            => nextHandler = new NullRenderHandler<T>();
 
         public void SetNextHandler(IRenderHandler<T> handler)
             => nextHandler = handler;
@@ -14,6 +14,6 @@
 
 
         public void InvokeNextHandler(T context)
-            => nextHandler?.Handle(context);
+            => nextHandler.Handle(context);
     }
 }
