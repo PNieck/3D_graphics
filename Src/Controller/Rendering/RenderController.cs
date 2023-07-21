@@ -12,16 +12,10 @@ namespace _3D_graphics.Controller.Rendering
 
         private readonly RenderingPipelineFactory _pipelineFactory;
 
-        private readonly int windowWidth;
-        private readonly int windowHeight;
-
         public CameraController Camera { get { return _cameraController; } }
 
         public RenderController(int windowWidth, int windowHeight, Car car)
         {
-            this.windowWidth = windowWidth;
-            this.windowHeight = windowHeight;
-
             _cameraController = new CameraController(car, windowWidth, windowHeight);
             
             _pipelineFactory = new RenderingPipelineFactory(windowWidth, windowHeight);
