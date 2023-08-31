@@ -40,7 +40,9 @@ namespace Tests.Models
             var unprojected = camera.Unproject(projected);
             
 
-            Assert.Equal(position, unprojected);
+            Assert.Equal((double)position.X, (double)unprojected.X, 3);
+            Assert.Equal((double)position.Y, (double)unprojected.Y, 3);
+            Assert.Equal((double)position.Z, (double)unprojected.Z, 3);
         }
 
         [Fact]

@@ -10,6 +10,8 @@ namespace Tests.TestingTools
 
         public Vector3 Position => position;
 
+        public Vector3 LookingDirection => Vector3.UnitX;
+
         public Matrix4x4 GetCameraMatrix()
             => Matrix4x4.Identity;
 
@@ -17,19 +19,13 @@ namespace Tests.TestingTools
             => worldVector;
 
         public Vertex Project(Vertex worldVertex)
-        {
-            throw new NotImplementedException();
-        }
+            => worldVertex;
 
         public Triangle Project(Triangle worldTriangle)
-        {
-            throw new NotImplementedException();
-        }
+            => worldTriangle;
 
         public Vector3 ProjectNormal(Vector3 worldNormal)
-        {
-            throw new NotImplementedException();
-        }
+            => worldNormal;
 
         public Vector3 Unproject(Vector3 screenVector)
             => screenVector;
