@@ -1,6 +1,6 @@
-﻿using _3D_graphics.Controller.Rendering.RenderingEngines.ColorCalculators;
-using _3D_graphics.Controller.Rendering.RenderingPipeline.RenderHandlers.TriangleHandlers.ShadingAlgorithms;
-using _3D_graphics.Controller.Rendering.RenderingPipeline.RenderHandlers.TriangleHandlers.TrianglesFilling;
+﻿using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.ColorCalculators;
+using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.ShadingAlgorithms;
+using _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.TrianglesFilling;
 using _3D_graphics.Model.Canvas;
 using _3D_graphics.Model.Primitives;
 using System.Drawing;
@@ -24,7 +24,7 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
             canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGTH);
             var zBuffer = new ZBuffer(canvas);
             shading = new ConstShading(new ConstColorCalculator(TESTING_COLOR));
-            algorithm = new ScanLineAlgorithm(zBuffer, new IdentityCamera(), shading);
+            algorithm = new ScanLineAlgorithm(zBuffer.GetPainter(), new IdentityCamera(), shading);
         }
 
         [Theory]
@@ -32,7 +32,7 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
         public void SimpleTrianglesDrawingTest(params Triangle[] triangles)
         {
             var painter = canvas.GetPixelPainter();
-            painter.Clear(TESTING_BACKGROUND);
+            painter.Fill(TESTING_BACKGROUND);
 
             foreach (Triangle triangle in triangles)
             {
@@ -56,7 +56,7 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
         public void TrianglesDrawingTest(params Triangle[] triangles)
         {
             var painter = canvas.GetPixelPainter();
-            painter.Clear(TESTING_BACKGROUND);
+            painter.Fill(TESTING_BACKGROUND);
 
             foreach (Triangle triangle in triangles)
             {
@@ -82,7 +82,7 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
             Color triangleBehindColor = Color.Orange;
 
             var painter = canvas.GetPixelPainter();
-            painter.Clear(TESTING_BACKGROUND);
+            painter.Fill(TESTING_BACKGROUND);
 
             algorithm.DrawTriangle(t2);
             shading.SetBaseColor(triangleBehindColor);
@@ -91,7 +91,7 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
             foreach (var (x, y) in CanvasPixels())
                 Assert.NotEqual(triangleBehindColor, painter.GetPixel(x, y));
 
-            painter.Clear(TESTING_BACKGROUND);
+            painter.Fill(TESTING_BACKGROUND);
 
             shading.SetBaseColor(triangleBehindColor);
             algorithm.DrawTriangle(t1);
