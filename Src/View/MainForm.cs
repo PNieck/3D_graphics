@@ -1,5 +1,6 @@
 using _3D_graphics.Controller;
 using _3D_graphics.Model.Canvas;
+using _3D_graphics.Model.SourceOfLight;
 
 namespace _3D_graphics
 {
@@ -31,17 +32,29 @@ namespace _3D_graphics
         {
             switch (e.KeyCode)
             {
-                case Keys.Up:
+                case Keys.W:
                     sceneController.MoveCarForward();
                     break;
-                case Keys.Down:
+                case Keys.S:
                     sceneController.MoveCarBackward();
                     break;
-                case Keys.Right:
+                case Keys.D:
                     sceneController.TurnCarRight();
                     break;
-                case Keys.Left:
+                case Keys.A:
                     sceneController.TurnCarLeft();
+                    break;
+                case Keys.Up:
+                    sceneController.MoveCarLights(CarLightMovement.Up);
+                    break;
+                case Keys.Down:
+                    sceneController.MoveCarLights(CarLightMovement.Down);
+                    break;
+                case Keys.Right:
+                    sceneController.MoveCarLights(CarLightMovement.Right);
+                    break;
+                case Keys.Left:
+                    sceneController.MoveCarLights(CarLightMovement.Left);
                     break;
             }
         }
