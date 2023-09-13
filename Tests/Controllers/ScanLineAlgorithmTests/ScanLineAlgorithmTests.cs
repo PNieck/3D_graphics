@@ -33,8 +33,8 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
         [ClassData(typeof(TrivialTrianglesCases))]
         public void SimpleTrianglesDrawingTest(params Triangle[] triangles)
         {
-            using var painter = canvas.GetPixelPainter(wholeCanvas);
-            painter.Fill(TESTING_BACKGROUND);
+            using (var painter = canvas.GetPixelPainter(wholeCanvas))
+                painter.Fill(TESTING_BACKGROUND);
 
             foreach (Triangle triangle in triangles)
             {
@@ -44,21 +44,22 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
             Box boxWithTriangles = BoundingBox.Calculate(triangles);
             boxWithTriangles.Inflate(1);
 
-            foreach(var (x, y) in CanvasPixels())
-            {
-                if (boxWithTriangles.Contains(x, y))
-                    continue;
+            using (var painter = canvas.GetPixelPainter(wholeCanvas))
+                foreach (var (x, y) in CanvasPixels())
+                {
+                    if (boxWithTriangles.Contains(x, y))
+                        continue;
 
-                Assert.Equal(TESTING_BACKGROUND, painter.GetPixel(x, y, out _));
-            }
+                    Assert.Equal(TESTING_BACKGROUND, painter.GetPixel(x, y, out _));
+                }
         }
 
         [Theory(Skip = "No good enough results testing method")]
         [ClassData(typeof(TrivialTrianglesCases))]
         public void TrianglesDrawingTest(params Triangle[] triangles)
         {
-            using var painter = canvas.GetPixelPainter(wholeCanvas);
-            painter.Fill(TESTING_COLOR);
+            using (var painter = canvas.GetPixelPainter(wholeCanvas))
+                painter.Fill(TESTING_COLOR);
 
             foreach (Triangle triangle in triangles)
             {
@@ -83,25 +84,28 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
 
             Color triangleBehindColor = Color.Orange;
 
-            using var painter = canvas.GetPixelPainter(wholeCanvas);
-            painter.Fill(TESTING_BACKGROUND);
+            using (var painter = canvas.GetPixelPainter(wholeCanvas))
+                painter.Fill(TESTING_BACKGROUND);
 
             algorithm.DrawTriangle(t2);
             shading.SetBaseColor(triangleBehindColor);
             algorithm.DrawTriangle(t1);
 
-            foreach (var (x, y) in CanvasPixels())
-                Assert.NotEqual(triangleBehindColor, painter.GetPixel(x, y, out _));
+            using (var painter = canvas.GetPixelPainter(wholeCanvas))
+                foreach (var (x, y) in CanvasPixels())
+                    Assert.NotEqual(triangleBehindColor, painter.GetPixel(x, y, out _));
 
-            painter.Fill(TESTING_BACKGROUND);
+            using (var painter = canvas.GetPixelPainter(wholeCanvas))
+                painter.Fill(TESTING_BACKGROUND);
 
             shading.SetBaseColor(triangleBehindColor);
             algorithm.DrawTriangle(t1);
             shading.SetBaseColor(TESTING_COLOR);
             algorithm.DrawTriangle(t2);
 
-            foreach (var (x, y) in CanvasPixels())
-                Assert.NotEqual(triangleBehindColor, painter.GetPixel(x, y, out _));
+            using (var painter = canvas.GetPixelPainter(wholeCanvas))
+                foreach (var (x, y) in CanvasPixels())
+                    Assert.NotEqual(triangleBehindColor, painter.GetPixel(x, y, out _));
         }
 
 
