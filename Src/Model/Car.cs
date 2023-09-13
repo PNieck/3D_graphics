@@ -1,4 +1,5 @@
 ﻿using _3D_graphics.Model.Primitives;
+using _3D_graphics.Model.SourceOfLight;
 using System.Numerics;
 
 namespace _3D_graphics.Model
@@ -12,11 +13,12 @@ namespace _3D_graphics.Model
         
         private event CarHaveMoved? carHaveMoved;
 
-        private Vector3 _front;
-        private Vector3 _coordinates;
+        private CarHeadLight headLight;
 
-        public Vector3 Coordinates { get { return _coordinates; } }
-        public Vector3 VectorToFront { get { return _front; } }
+        public Vector3 Coordinates { get; private set; }
+        public Vector3 VectorToFront { get; private set; }
+
+        public ISourceOfLight Light { get => headLight; }
 
         public override IEnumerable<Triangle> triangles
         {
@@ -24,15 +26,20 @@ namespace _3D_graphics.Model
             {
                 foreach (var triangle in base.triangles)
                 {
-                    yield return triangle.Move(_coordinates);
+                    yield return triangle.Move(Coordinates);
                 }
             }
         }
 
         public Car(RenderObject model) : base(model)
         {
-            _front = Vector3.UnitX;
-            _coordinates = Vector3.Zero;
+            VectorToFront = Vector3.UnitX;
+            Coordinates = Vector3.Zero;
+
+            // TODO: remove hard-coded offset
+            headLight = new CarHeadLight(Coordinates, VectorToFront, 100, 50, 0.5f);
+
+            AddPositionObserver(headLight.UpdatePosition);
         }
 
         public void AddPositionObserver(CarHaveMoved handerMethod)
@@ -47,13 +54,15 @@ namespace _3D_graphics.Model
 
         public void GoForeward()
         {
-            _coordinates += _front * movementSpeed;
+            var offset = VectorToFront * movementSpeed;
+            Coordinates += offset;
             InformObserversAboutMovement();
         }
 
         public void GoBackward()
         {
-            _coordinates -= _front * movementSpeed;
+            var offset = -VectorToFront * movementSpeed;
+            Coordinates += offset;
             InformObserversAboutMovement();
         }
 
@@ -72,14 +81,17 @@ namespace _3D_graphics.Model
 
         private void TurnByAngle(Angle angle)
         {
-            _front = Vector3.Transform(
-                _front,
-                Quaternion.CreateFromYawPitchRoll(0, 0, angle.Radians)
+            var quat = Quaternion.CreateFromYawPitchRoll(0, 0, angle.Radians);
+
+            VectorToFront = Vector3.Transform(
+                VectorToFront,
+                quat
             );
+
             mesh.RotateAroundZ(angle);
         }
 
         private void InformObserversAboutMovement()
-            => carHaveMoved?.Invoke(_coordinates, _front);
+            => carHaveMoved?.Invoke(Coordinates, VectorToFront);
     }
 }

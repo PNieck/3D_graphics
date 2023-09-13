@@ -19,9 +19,10 @@ namespace _3D_graphics.Model
             _lights = new List<ISourceOfLight>(lights);
 
             if (!_renderObjects.Contains(this.car))
-            {
                 _renderObjects.Insert(0, this.car);
-            }
+
+            if (!_lights.Contains(car.Light))
+                _lights.Add(car.Light);
         }
     }
 }
