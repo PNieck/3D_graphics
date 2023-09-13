@@ -18,7 +18,8 @@ namespace _3D_graphics
 
         void NewSceneHandler(Canvas screen)
         {
-            screen.Apply(CanvasWidget);
+            CanvasWidget.Image = screen.GetSnapshot();
+            CanvasWidget.Refresh();
         }
 
         void FpsHandler(double fps)

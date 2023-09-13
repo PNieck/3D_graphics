@@ -8,17 +8,17 @@ namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.SceneHandler
     {
         public Scene Scene { get; }
         public ICamera Camera { get; }
-        public ZBuffer DrawingBuffer { get; }
+        public Canvas Canvas { get; }
 
-        public SceneHandlerContext(Scene scene, ICamera camera, ZBuffer drawingBuffer)
+        public SceneHandlerContext(Scene scene, ICamera camera, Canvas canvas)
         {
             Scene = scene;
             Camera = camera;
-            DrawingBuffer = drawingBuffer;
+            Canvas = canvas;
         }
 
         public SceneHandlerContext(SceneHandlerContext sceneContext) :
-            this(sceneContext.Scene, sceneContext.Camera, sceneContext.DrawingBuffer)
+            this(sceneContext.Scene, sceneContext.Camera, sceneContext.Canvas)
         { }
     }
 }

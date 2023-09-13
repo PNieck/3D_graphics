@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Drawing.Imaging;
 using System.Numerics;
 
 namespace Tests
@@ -65,6 +66,26 @@ namespace Tests
             Vector3 v2 = new Vector3(8, 5, 3);
 
             Assert.Equal(new Vector3(40, 20, 6), v1 * v2);
+        }
+
+        [Fact]
+        public void BitmapDataIsEqualToLockedBitmapPart()
+        {
+            const int bitmapHeight = 100;
+            const int bitmapWidth = 120;
+
+            const int lockedHeight = 50;
+            const int lockedWidth = 60;
+
+            var bitmap = new Bitmap(bitmapWidth, bitmapHeight);
+            
+            var rectangle = new Rectangle(0,0, lockedWidth, lockedHeight);
+            BitmapData bitmapData = bitmap.LockBits(rectangle, ImageLockMode.ReadOnly, bitmap.PixelFormat);
+
+            Assert.Equal(lockedHeight, bitmapData.Height);
+            Assert.Equal(lockedWidth, bitmapData.Width);
+
+            bitmap.UnlockBits(bitmapData);
         }
     }
 }

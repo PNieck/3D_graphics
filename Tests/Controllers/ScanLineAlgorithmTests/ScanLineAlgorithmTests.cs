@@ -17,21 +17,23 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
 
         private readonly ScanLineAlgorithm algorithm;
         private readonly Canvas canvas;
+        private readonly CanvasPart wholeCanvas;
         private readonly Shading shading;
 
         public ScanLineAlgorithmTests()
         {
             canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGTH);
-            var zBuffer = new ZBuffer(canvas);
+            wholeCanvas = new CanvasPart(canvas.MinX,canvas.MaxY,canvas.Width,canvas.Height);
+
             shading = new ConstShading(new ConstColorCalculator(TESTING_COLOR));
-            algorithm = new ScanLineAlgorithm(zBuffer.GetPainter(), new IdentityCamera(), shading);
+            algorithm = new ScanLineAlgorithm(canvas, new IdentityCamera(), shading);
         }
 
         [Theory]
         [ClassData(typeof(TrivialTrianglesCases))]
         public void SimpleTrianglesDrawingTest(params Triangle[] triangles)
         {
-            var painter = canvas.GetPixelPainter();
+            using var painter = canvas.GetPixelPainter(wholeCanvas);
             painter.Fill(TESTING_BACKGROUND);
 
             foreach (Triangle triangle in triangles)
@@ -47,7 +49,7 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
                 if (boxWithTriangles.Contains(x, y))
                     continue;
 
-                Assert.Equal(TESTING_BACKGROUND, painter.GetPixel(x, y));
+                Assert.Equal(TESTING_BACKGROUND, painter.GetPixel(x, y, out _));
             }
         }
 
@@ -55,8 +57,8 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
         [ClassData(typeof(TrivialTrianglesCases))]
         public void TrianglesDrawingTest(params Triangle[] triangles)
         {
-            var painter = canvas.GetPixelPainter();
-            painter.Fill(TESTING_BACKGROUND);
+            using var painter = canvas.GetPixelPainter(wholeCanvas);
+            painter.Fill(TESTING_COLOR);
 
             foreach (Triangle triangle in triangles)
             {
@@ -81,7 +83,7 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
 
             Color triangleBehindColor = Color.Orange;
 
-            var painter = canvas.GetPixelPainter();
+            using var painter = canvas.GetPixelPainter(wholeCanvas);
             painter.Fill(TESTING_BACKGROUND);
 
             algorithm.DrawTriangle(t2);
@@ -89,7 +91,7 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
             algorithm.DrawTriangle(t1);
 
             foreach (var (x, y) in CanvasPixels())
-                Assert.NotEqual(triangleBehindColor, painter.GetPixel(x, y));
+                Assert.NotEqual(triangleBehindColor, painter.GetPixel(x, y, out _));
 
             painter.Fill(TESTING_BACKGROUND);
 
@@ -99,17 +101,17 @@ namespace Tests.Controllers.ScanLineAlgorithmTests
             algorithm.DrawTriangle(t2);
 
             foreach (var (x, y) in CanvasPixels())
-                Assert.NotEqual(triangleBehindColor, painter.GetPixel(x, y));
+                Assert.NotEqual(triangleBehindColor, painter.GetPixel(x, y, out _));
         }
 
 
         private void AssertCanvas(IEnumerable<Triangle> triangles)
         {
-            var painter = canvas.GetPixelPainter();
+            using var painter = canvas.GetPixelPainter(wholeCanvas);
 
             foreach (var pixel in CanvasPixels())
             {
-                Color pixelColor = painter.GetPixel(pixel.x, pixel.y);
+                Color pixelColor = painter.GetPixel(pixel.x, pixel.y, out _);
 
                 if (PointInsideTriangle.PointInsideOneOf2DTriangles(pixel.x, pixel.y, triangles))
                     Assert.Equal(TESTING_COLOR, pixelColor);

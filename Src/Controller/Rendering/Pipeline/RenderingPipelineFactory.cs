@@ -9,14 +9,13 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
 {
     public class RenderingPipelineFactory
     {
-        private readonly ZBuffer zBuffer;
+        private readonly Canvas canvas;
         private readonly HashSet<SceneFPSHandler> fpsHandlers;
         public RenderingType RenderingType { get; set; }
 
         public RenderingPipelineFactory(int canvasWidth, int canvasHeight)
         {
-            var canvas = new Canvas(canvasWidth, canvasHeight);
-            zBuffer = new ZBuffer(canvas);
+            canvas = new Canvas(canvasWidth, canvasHeight);
 
             RenderingType = RenderingType.PhongShading;
             fpsHandlers = new HashSet<SceneFPSHandler>();
@@ -35,7 +34,7 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
             sceneToObject.NextHandler = objectToTriangle;
             objectToTriangle.NextHandler = firstTriangleHandler;
 
-            return new RenderingPipeline(zBuffer, firstSceneHandler);
+            return new RenderingPipeline(canvas, firstSceneHandler);
         }
 
         public void AddFpsHandler(SceneFPSHandler handler)
@@ -49,17 +48,13 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
             GetScenePipeline()
         {
             var backgroundPainter = new StaticBackgroundSetter(Color.White);
-            var zBufferReset = new ZBufferReset
-            {
-                NextHandler = backgroundPainter
-            };
 
             if (fpsHandlers.Count == 0)
-                return (zBufferReset, backgroundPainter);
+                return (backgroundPainter, backgroundPainter);
 
             var fpsHandler = CreateFPSCounter();
 
-            fpsHandler.NextHandler = zBufferReset;
+            fpsHandler.NextHandler = backgroundPainter;
 
             return (fpsHandler, backgroundPainter);
         }
@@ -79,7 +74,8 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
         {
             return RenderingType switch
             {
-                RenderingType.Edges => new EdgesDrawingHandler(Pens.Black),
+                //RenderingType.Edges => new EdgesDrawingHandler(Pens.Black),
+                RenderingType.Edges => new ObjectColorDrawingHandler(),
                 RenderingType.ObjectColor => new ObjectColorDrawingHandler(),
                 RenderingType.PhongShading => new PhongDrawingHandler(),
                 RenderingType.GouraudShading => new GouraudDrawingHandler(),
