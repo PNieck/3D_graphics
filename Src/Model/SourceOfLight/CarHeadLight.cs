@@ -48,6 +48,14 @@ namespace _3D_graphics.Model.SourceOfLight
                     quat = Quaternion.CreateFromYawPitchRoll(rotationSpeed.Radians, 0, 0);
                     break;
 
+                case CarLightMovement.Right:
+                    quat = Quaternion.CreateFromYawPitchRoll(0, 0, -rotationSpeed.Radians);
+                    break;
+
+                case CarLightMovement.Left:
+                    quat = Quaternion.CreateFromYawPitchRoll(0, 0, rotationSpeed.Radians);
+                    break;
+
                 default:
                     throw new Exception("Unknown movement specifier");
             }

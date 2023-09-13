@@ -50,6 +50,12 @@ namespace _3D_graphics
                 case Keys.Down:
                     sceneController.MoveCarLights(CarLightMovement.Down);
                     break;
+                case Keys.Right:
+                    sceneController.MoveCarLights(CarLightMovement.Right);
+                    break;
+                case Keys.Left:
+                    sceneController.MoveCarLights(CarLightMovement.Left);
+                    break;
             }
         }
 
