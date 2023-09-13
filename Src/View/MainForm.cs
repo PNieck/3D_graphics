@@ -47,6 +47,9 @@ namespace _3D_graphics
                 case Keys.Up:
                     sceneController.MoveCarLights(CarLightMovement.Up);
                     break;
+                case Keys.Down:
+                    sceneController.MoveCarLights(CarLightMovement.Down);
+                    break;
             }
         }
 

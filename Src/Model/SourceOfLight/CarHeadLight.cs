@@ -38,9 +38,13 @@ namespace _3D_graphics.Model.SourceOfLight
         {
             Quaternion quat;
 
-            switch(move)
+            switch (move)
             {
                 case CarLightMovement.Up:
+                    quat = Quaternion.CreateFromYawPitchRoll(-rotationSpeed.Radians, 0, 0);
+                    break;
+
+                case CarLightMovement.Down:
                     quat = Quaternion.CreateFromYawPitchRoll(rotationSpeed.Radians, 0, 0);
                     break;
 
