@@ -82,6 +82,12 @@ namespace _3D_graphics.Controller
             RequestRender();
         }
 
+        public void MoveCarLightsUp()
+        {
+            scene.car.MoveLightUp();
+            RequestRender();
+        }
+
         public void SetCameraType(CameraType cameraType)
         {
             renderController.Camera.SetCameraType(cameraType);

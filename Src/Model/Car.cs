@@ -78,6 +78,9 @@ namespace _3D_graphics.Model
             InformObserversAboutMovement();
         }
 
+        public void MoveLightUp()
+            => headLight.MoveUp();
+
 
         private void TurnByAngle(Angle angle)
         {

@@ -31,17 +31,20 @@ namespace _3D_graphics
         {
             switch (e.KeyCode)
             {
-                case Keys.Up:
+                case Keys.W:
                     sceneController.MoveCarForward();
                     break;
-                case Keys.Down:
+                case Keys.S:
                     sceneController.MoveCarBackward();
                     break;
-                case Keys.Right:
+                case Keys.D:
                     sceneController.TurnCarRight();
                     break;
-                case Keys.Left:
+                case Keys.A:
                     sceneController.TurnCarLeft();
+                    break;
+                case Keys.Up:
+                    sceneController.MoveCarLightsUp();
                     break;
             }
         }
