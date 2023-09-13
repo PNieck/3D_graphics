@@ -3,6 +3,14 @@ using System.Numerics;
 
 namespace _3D_graphics.Model.SourceOfLight
 {
+    public enum CarLightMovement
+    {
+        Up,
+        Down,
+        Right,
+        Left
+    }
+
     public class CarHeadLight : Spotlight, ISourceOfLight
     {
         private static readonly Angle rotationSpeed = Angle.FromDegrees(2.0f);
@@ -26,9 +34,20 @@ namespace _3D_graphics.Model.SourceOfLight
             lightingDirection = Vector3.Transform(carVectorToFront, rotation);
         }
 
-        public void MoveUp()
+        public void Move(CarLightMovement move)
         {
-            var quat = Quaternion.CreateFromYawPitchRoll(rotationSpeed.Radians, 0, 0);
+            Quaternion quat;
+
+            switch(move)
+            {
+                case CarLightMovement.Up:
+                    quat = Quaternion.CreateFromYawPitchRoll(rotationSpeed.Radians, 0, 0);
+                    break;
+
+                default:
+                    throw new Exception("Unknown movement specifier");
+            }
+
             rotation *= quat;
 
             lightingDirection = Vector3.Transform(lightingDirection, quat);

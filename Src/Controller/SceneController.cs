@@ -2,6 +2,7 @@
 using _3D_graphics.Controller.SceneInit;
 using _3D_graphics.Model;
 using _3D_graphics.Model.Canvas;
+using _3D_graphics.Model.SourceOfLight;
 
 namespace _3D_graphics.Controller
 {
@@ -82,9 +83,9 @@ namespace _3D_graphics.Controller
             RequestRender();
         }
 
-        public void MoveCarLightsUp()
+        public void MoveCarLights(CarLightMovement move)
         {
-            scene.car.MoveLightUp();
+            scene.car.MoveLight(move);
             RequestRender();
         }
 

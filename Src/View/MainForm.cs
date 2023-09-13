@@ -1,5 +1,6 @@
 using _3D_graphics.Controller;
 using _3D_graphics.Model.Canvas;
+using _3D_graphics.Model.SourceOfLight;
 
 namespace _3D_graphics
 {
@@ -44,7 +45,7 @@ namespace _3D_graphics
                     sceneController.TurnCarLeft();
                     break;
                 case Keys.Up:
-                    sceneController.MoveCarLightsUp();
+                    sceneController.MoveCarLights(CarLightMovement.Up);
                     break;
             }
         }
