@@ -4,8 +4,7 @@
     {
         public override void Handle(SceneHandlerContext context)
         {
-            var painter = context.DrawingBuffer.GetPainter();
-            painter.ResetZValues();
+            context.Canvas.ResetZValues();
 
             InvokeNextHandler(context);
         }

@@ -16,7 +16,7 @@ namespace Tests.Models
             Assert.True(EqualVertex(v, result));
         }
 
-        public bool EqualVertex(Vertex expected, Vertex actual)
+        public static bool EqualVertex(Vertex expected, Vertex actual)
         {
             return expected.coordinates.Equals(actual.coordinates) &&
                    expected.normal.Equals(actual.normal);

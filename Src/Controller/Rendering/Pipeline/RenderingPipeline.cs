@@ -9,21 +9,21 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
     public class RenderingPipeline
     {
         private readonly IRenderHandler<SceneHandlerContext> renderHandler;
-        private readonly ZBuffer drawingBuffer;
+        private readonly Canvas canvas;
 
-        public RenderingPipeline(ZBuffer drawingBuffer, IRenderHandler<SceneHandlerContext> renderHandler)
+        public RenderingPipeline(Canvas drawingBuffer, IRenderHandler<SceneHandlerContext> renderHandler)
         {
             this.renderHandler = renderHandler;
-            this.drawingBuffer = drawingBuffer;
+            canvas = drawingBuffer;
         }
 
         public Canvas RenderScene(Scene scene, ICamera camera)
         {
-            var context = new SceneHandlerContext(scene, camera, drawingBuffer);
+            var context = new SceneHandlerContext(scene, camera, canvas);
 
             renderHandler.Handle(context);
 
-            return drawingBuffer.Canvas;
+            return canvas;
         }
     }
 }

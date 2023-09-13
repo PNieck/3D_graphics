@@ -18,7 +18,7 @@ namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHand
             shading.SetTriangle(context.Triangle);
             shading.SetBaseColor(context.RenderObject.color);
 
-            var algorithm = new ScanLineAlgorithm(context.DrawingBuffer.GetPainter(),
+            var algorithm = new ScanLineAlgorithm(context.Canvas,
                                                   context.Camera,
                                                   shading);
 

@@ -1,7 +1,4 @@
 ﻿using _3D_graphics.Model.Primitives;
-using Microsoft.VisualBasic;
-using System.Drawing;
-using System.Reflection;
 
 namespace Tests.TestingTools
 {
@@ -76,7 +73,7 @@ namespace Tests.TestingTools
         public readonly bool Contains(float x, float y)
             => y >= Bottom && y <= Top && x >= Left && x <= Right;
 
-        public override string ToString()
+        public override readonly string ToString()
             => $"Box - Top: {Top}, Bottom {Bottom}, Left: {Left}, Right: {Right}";
 
         public static Box Union(Box b1, Box b2)
