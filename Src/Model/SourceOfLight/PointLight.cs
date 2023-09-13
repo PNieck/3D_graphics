@@ -3,26 +3,18 @@ using System.Numerics;
 
 namespace _3D_graphics.Model.SourceOfLight
 {
-    public class PointLight : ISourceOfLight
+    public class PointLight : Light, ISourceOfLight
     {
-        private Color color;
-        private ColorRatios colorRatios;
-
-        public Vector3 Coordinates { get; set; }
-
-        public PointLight(Vector3 coordinates, Color lightColor)
-        {
-            Coordinates = coordinates;
-            color = lightColor;
-            colorRatios = new ColorRatios(lightColor);
-        }
+        public PointLight(Vector3 coordinates, Color lightColor):
+            base(coordinates, lightColor)
+        {}
 
         public PointLight(Vector3 coordinates): this(coordinates, Color.White) { }
 
-        public Color GetColor(Vector3 coordinates)
+        public override Color GetColor(Vector3 coordinates)
             => color;
 
-        public ColorRatios GetColorRatios(Vector3 coordinates)
+        public override ColorRatios GetColorRatios(Vector3 coordinates)
             => colorRatios;
     }
 }
