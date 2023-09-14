@@ -1,104 +1,57 @@
-﻿using _3D_graphics.Controller.Rendering;
-using _3D_graphics.Controller.SceneInit;
+﻿using _3D_graphics.Controller.SceneInit;
 using _3D_graphics.Model;
-using _3D_graphics.Model.Canvas;
 using _3D_graphics.Model.SourceOfLight;
 
 namespace _3D_graphics.Controller
 {
-    public delegate void SceneChangedHandler(Canvas screen);
-    public delegate void SceneFPSHandler(double fpsCnt);
-
-    public enum RenderingType
-    {
-        Edges,
-        ObjectColor,
-        PhongShading,
-        GouraudShading
-    }
-
-    public enum CameraType
-    {
-        Static,
-        TPP,
-        CarFollowing
-    }
-
     public class SceneController
     {
-        private Canvas screen;
-        private Scene scene;
-        private event SceneChangedHandler? sceneChanged;
+        public Scene scene { get; }
 
-        private RenderController renderController;
-
-        public SceneController(int width, int height, SceneChangedHandler? handler = null)
+        public SceneController()
         {
-            screen = new Canvas(width, height);
-            
             InitSceneController initScene = new InitSceneController();
             scene = initScene.GetScene();
-
-            renderController = new RenderController(width, height, scene.car);
-
-            if (handler != null)
-            {
-                sceneChanged = handler;
-            }
-        }
-
-        public void AddNewSceneObserver(SceneChangedHandler handler)
-            => sceneChanged += handler;
-
-        public void AddNewFpsObserver(SceneFPSHandler handler)
-            => renderController.AddFpsHandler(handler);
-
-        public void RequestRender()
-        {
-            screen = renderController.RenderScene(scene);
-            sceneChanged?.Invoke(screen);
         }
 
         public void MoveCarForward()
         {
-            scene.car.GoForeward();
-            RequestRender();
+            lock(scene)
+            {
+                scene.car.GoForeward();
+            }
         }
 
         public void MoveCarBackward()
         {
-            scene.car.GoBackward();
-            RequestRender();
+            lock (scene)
+            {
+                scene.car.GoBackward();
+            }
         }
 
         public void TurnCarRight()
         {
-            scene.car.TurnRight();
-            RequestRender();
+            lock (scene)
+            {
+                scene.car.TurnRight();
+            }
         }
 
         public void TurnCarLeft()
         {
-            scene.car.TurnLeft();
-            RequestRender();
+            lock (scene)
+            {
+                scene.car.TurnLeft();
+            }
         }
 
         public void MoveCarLights(CarLightMovement move)
         {
-            scene.car.MoveLight(move);
-            RequestRender();
-        }
-
-        public void SetCameraType(CameraType cameraType)
-        {
-            renderController.Camera.SetCameraType(cameraType);
-            RequestRender();
-        }
-
-        public void SetRenderingType(RenderingType renderType)
-        {
-            renderController.SetRenderingType(renderType);
-            RequestRender();
+            lock(scene)
+            {
+                scene.car.MoveLight(move);
+            }
         }
     }
 }
