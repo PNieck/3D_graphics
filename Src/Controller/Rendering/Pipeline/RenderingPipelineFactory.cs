@@ -57,15 +57,23 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
         private (RenderHandler<SceneHandlerContext> first, RenderHandler<SceneHandlerContext> last)
             GetScenePipeline()
         {
-            RenderHandler<SceneHandlerContext> firstHandler = new StaticBackgroundSetter(Color.White);
+            RenderHandler<SceneHandlerContext> firstHandler = new TimeHandler();
             RenderHandler<SceneHandlerContext> lastHandler = firstHandler;
+
+            var backgroundSetter = new DayNightBackgroundSetter();
+            lastHandler.NextHandler = backgroundSetter;
+            lastHandler = backgroundSetter;
 
             if (fpsHandlers.Count > 0)
             {
                 var fpsHandler = CreateFPSCounter();
-                fpsHandler.NextHandler = firstHandler;
-                firstHandler = fpsHandler;
+                lastHandler.NextHandler = fpsHandler;
+                lastHandler = fpsHandler;
             }
+
+            var sunHandler = new SunHandler();
+            lastHandler.NextHandler = sunHandler;
+            lastHandler = sunHandler;
             
             if (CarShaking)
             {

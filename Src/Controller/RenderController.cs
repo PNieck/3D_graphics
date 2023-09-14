@@ -104,8 +104,8 @@ namespace _3D_graphics.Controller
 
             lock (sceneController.scene)
             {
-                ICamera camera = _cameraController.GetCamera();
-                canvas = _pipeline.RenderScene(sceneController.scene, camera);
+            ICamera camera = _cameraController.GetCamera();
+            canvas = _pipeline.RenderScene(sceneController.scene, camera);
             }
 
             renderFinished?.Invoke(canvas);
@@ -113,8 +113,8 @@ namespace _3D_graphics.Controller
 
         private void OnTimedEvent(object? sender, ElapsedEventArgs e)
         {
-            Render();
-
+                Render();
+                
             if (timerIsOn) renderTimer.Start();
         }
     }

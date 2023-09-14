@@ -53,5 +53,21 @@ namespace _3D_graphics.Controller
                 scene.car.MoveLight(move);
             }
         }
+
+        public void StartNight()
+        {
+            lock (scene)
+            {
+                scene.DayStatus = DayStatus.GettingDarker;
+            }
+        }
+
+        public void StartDay()
+        {
+            lock (scene)
+            {
+                scene.DayStatus = DayStatus.GettintBrighter;
+            }
+        }
     }
 }

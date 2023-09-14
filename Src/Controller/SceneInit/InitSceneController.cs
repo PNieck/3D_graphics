@@ -18,12 +18,10 @@ namespace _3D_graphics.Controller.SceneInit
         {
             var renderObjects = GetBackgroundObjects();
             var car = GetCarObject();
-            var lights = new List<ISourceOfLight>
-            {
-                new PointLight(new Vector3(0, 100, 400))
-            };
+            var lights = new List<ISourceOfLight>();
+            var sun = new Sun(new Vector3(0, 100, 400));
 
-            return new Scene(renderObjects, lights, car);
+            return new Scene(renderObjects, lights, car, sun);
         }
 
         public IEnumerable<RenderObject> GetBackgroundObjects()
