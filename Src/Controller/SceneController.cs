@@ -69,5 +69,21 @@ namespace _3D_graphics.Controller
                 scene.DayStatus = DayStatus.GettintBrighter;
             }
         }
+
+        public void StartFog()
+        {
+            lock(scene)
+            {
+                scene.FogStatus = FogStatus.GettingStronger;
+            }
+        }
+
+        public void EndFog()
+        {
+            lock (scene)
+            {
+                scene.FogStatus = FogStatus.GettingWeaker;
+            }
+        }
     }
 }

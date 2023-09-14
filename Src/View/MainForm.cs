@@ -75,6 +75,13 @@ namespace _3D_graphics
                 case Keys.O:
                     sceneController.StartNight();
                     break;
+
+                case Keys.L:
+                    sceneController.StartFog();
+                    break;
+                case Keys.K:
+                    sceneController.EndFog();
+                    break;
             }
 
             renderController.RenderScene();

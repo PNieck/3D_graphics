@@ -4,6 +4,8 @@ namespace _3D_graphics.Model
 {
     public enum DayStatus { GettingDarker, GettintBrighter, NotChanging };
 
+    public enum FogStatus { GettingStronger, GettingWeaker, NotChanging };
+
     public class Scene
     {
         List<RenderObject> _renderObjects;  // Including the car
@@ -16,6 +18,9 @@ namespace _3D_graphics.Model
 
         public DayStatus DayStatus { get; set;  }
         public float TimeOfDay { get; set; }
+
+        public FogStatus FogStatus { get; set; }
+        public float FogLevel { get; set; }
 
         public Scene(IEnumerable<RenderObject> renderObjects, IEnumerable<ISourceOfLight> lights, Car car, Sun sun)
         {
@@ -33,7 +38,11 @@ namespace _3D_graphics.Model
                 _lights.Add(sun);
 
             TimeOfDay = 0.0f;
-            DayStatus = DayStatus.GettingDarker;
+            DayStatus = DayStatus.NotChanging;
+
+            FogLevel = 0.0f;
+            FogStatus = FogStatus.NotChanging;
+
             Sun = sun;
         }
     }

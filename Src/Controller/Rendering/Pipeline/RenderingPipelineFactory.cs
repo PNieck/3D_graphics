@@ -60,6 +60,10 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
             RenderHandler<SceneHandlerContext> firstHandler = new TimeHandler();
             RenderHandler<SceneHandlerContext> lastHandler = firstHandler;
 
+            var fogHandler = new FogHandler();
+            lastHandler.NextHandler = fogHandler;
+            lastHandler = fogHandler;
+
             var backgroundSetter = new DayNightBackgroundSetter();
             lastHandler.NextHandler = backgroundSetter;
             lastHandler = backgroundSetter;

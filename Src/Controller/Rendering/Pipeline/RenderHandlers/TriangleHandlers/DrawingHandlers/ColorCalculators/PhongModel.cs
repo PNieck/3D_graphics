@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHandlers.DrawingHandlers.ColorCalculators
 {
-    internal class PhongModel : ColorCalculator
+    public class PhongModel : ColorCalculator
     {
         private const float SPECULAR_REFLECTION_CONST = 0.2f;
         private const float DIFFUSE_REFACTION_CONST = 0.5f;
@@ -15,7 +15,7 @@ namespace _3D_graphics.Controller.Rendering.Pipeline.RenderHandlers.TriangleHand
         private ColorRatios colorRations;
 
         private IEnumerable<ISourceOfLight> sourcesOfLights;
-        private ICamera camera;
+        protected ICamera camera;
 
         public PhongModel(Color color, IEnumerable<ISourceOfLight> sourcesOfLights, ICamera camera) :
             base(color)
