@@ -7,19 +7,23 @@ namespace _3D_graphics
     public partial class MainForm : Form
     {
         SceneController sceneController;
+        RenderController renderController;
 
         public MainForm()
         {
             InitializeComponent();
-            sceneController = new SceneController(CanvasWidget.Width, CanvasWidget.Height, NewSceneHandler);
-            sceneController.AddNewFpsObserver(FpsHandler);
+            sceneController = new SceneController();
 
-            sceneController.RequestRender();
+            renderController = new RenderController(CanvasWidget.Width, CanvasWidget.Height, sceneController);
+            renderController.AddFpsHandler(FpsHandler);
+            renderController.AddRenderObserver(RenderHandler);
+
+            renderController.RenderScene();
         }
 
-        void NewSceneHandler(Canvas screen)
+        void RenderHandler(Bitmap screen)
         {
-            CanvasWidget.Image = screen.GetSnapshot();
+            CanvasWidget.Image = screen;
             CanvasWidget.Refresh();
         }
 
@@ -44,6 +48,7 @@ namespace _3D_graphics
                 case Keys.A:
                     sceneController.TurnCarLeft();
                     break;
+
                 case Keys.Up:
                     sceneController.MoveCarLights(CarLightMovement.Up);
                     break;
@@ -56,28 +61,58 @@ namespace _3D_graphics
                 case Keys.Left:
                     sceneController.MoveCarLights(CarLightMovement.Left);
                     break;
+
+                case Keys.F:
+                    if (renderController.CarShakingStatus)
+                        renderController.RemoveCarShaking();
+                    else
+                        renderController.AddCarShaking();
+                    break;
             }
+
+            renderController.RenderScene();
         }
 
         private void StaticCameraButton_Click(object sender, EventArgs e)
-            => sceneController.SetCameraType(CameraType.Static);
+        {
+            renderController.SetCameraType(CameraType.Static);
+            renderController.RenderScene();
+        }
 
         private void CarFollowingCameraButton_Click(object sender, EventArgs e)
-            => sceneController.SetCameraType(CameraType.CarFollowing);
+        {
+            renderController.SetCameraType(CameraType.CarFollowing);
+            renderController.RenderScene();
+        }
 
         private void TPPCameraToolStripMenuItem_Click(object sender, EventArgs e)
-            => sceneController.SetCameraType(CameraType.TPP);
+        {
+            renderController.SetCameraType(CameraType.TPP);
+            renderController.RenderScene();
+        }
 
         private void modelColorToolStripMenuItem_Click(object sender, EventArgs e)
-            => sceneController.SetRenderingType(RenderingType.ObjectColor);
+        {
+            renderController.SetRenderingType(RenderingType.ObjectColor);
+            renderController.RenderScene();
+        }
 
         private void edgesToolStripMenuItem_Click(object sender, EventArgs e)
-            => sceneController.SetRenderingType(RenderingType.Edges);
+        {
+            renderController.SetRenderingType(RenderingType.Edges);
+            renderController.RenderScene();
+        }
 
         private void phongToolStripMenuItem_Click(object sender, EventArgs e)
-            => sceneController.SetRenderingType(RenderingType.PhongShading);
+        {
+            renderController.SetRenderingType(RenderingType.PhongShading);
+            renderController.RenderScene();
+        }
 
         private void gourandShadingToolStripMenuItem_Click(object sender, EventArgs e)
-            => sceneController.SetRenderingType(RenderingType.GouraudShading);
+        {
+            renderController.SetRenderingType(RenderingType.GouraudShading);
+            renderController.RenderScene();
+        }
     }
 }

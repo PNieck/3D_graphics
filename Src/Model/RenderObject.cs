@@ -27,7 +27,7 @@ namespace _3D_graphics.Model
 
         public void RotateAroundZ(Angle degrees) => mesh.RotateAroundZ(degrees);
 
-        public void MoveByVector(Vector3 vector) => mesh.Move(vector);
+        public virtual void MoveByVector(Vector3 vector) => mesh.Move(vector);
 
         public override string ToString()
         {

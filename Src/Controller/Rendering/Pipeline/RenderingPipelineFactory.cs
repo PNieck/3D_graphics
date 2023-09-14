@@ -11,6 +11,9 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
     {
         private readonly Canvas canvas;
         private readonly HashSet<SceneFPSHandler> fpsHandlers;
+
+        public bool CarShaking { get; private set; }
+
         public RenderingType RenderingType { get; set; }
 
         public RenderingPipelineFactory(int canvasWidth, int canvasHeight)
@@ -19,6 +22,7 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
 
             RenderingType = RenderingType.PhongShading;
             fpsHandlers = new HashSet<SceneFPSHandler>();
+            CarShaking = false;
         }
 
 
@@ -43,20 +47,34 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
         public void RemoveFpsHandler(SceneFPSHandler handler)
             => fpsHandlers.Remove(handler);
 
+        public void AddCarShaking()
+            => CarShaking = true;
+
+        public void RemoveCarShaking()
+            => CarShaking = false;
+
 
         private (RenderHandler<SceneHandlerContext> first, RenderHandler<SceneHandlerContext> last)
             GetScenePipeline()
         {
-            var backgroundPainter = new StaticBackgroundSetter(Color.White);
+            RenderHandler<SceneHandlerContext> firstHandler = new StaticBackgroundSetter(Color.White);
+            RenderHandler<SceneHandlerContext> lastHandler = firstHandler;
 
-            if (fpsHandlers.Count == 0)
-                return (backgroundPainter, backgroundPainter);
+            if (fpsHandlers.Count > 0)
+            {
+                var fpsHandler = CreateFPSCounter();
+                fpsHandler.NextHandler = firstHandler;
+                firstHandler = fpsHandler;
+            }
+            
+            if (CarShaking)
+            {
+                var carShaker = new CarShaker();
+                lastHandler.NextHandler = carShaker;
+                lastHandler = carShaker;
+            }
 
-            var fpsHandler = CreateFPSCounter();
-
-            fpsHandler.NextHandler = backgroundPainter;
-
-            return (fpsHandler, backgroundPainter);
+            return (firstHandler, lastHandler);
         }
 
         private (RenderHandler<TriangleHandlerContext> first, RenderHandler<TriangleHandlerContext> last)

@@ -78,6 +78,12 @@ namespace _3D_graphics.Model
             InformObserversAboutMovement();
         }
 
+        public override void MoveByVector(Vector3 vector)
+        {
+            base.MoveByVector(vector);
+            InformObserversAboutMovement();
+        }
+
         public void MoveLight(CarLightMovement move)
             => headLight.Move(move);
 

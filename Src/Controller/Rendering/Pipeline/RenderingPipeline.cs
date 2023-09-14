@@ -17,13 +17,13 @@ namespace _3D_graphics.Controller.Rendering.Pipeline
             canvas = drawingBuffer;
         }
 
-        public Canvas RenderScene(Scene scene, ICamera camera)
+        public Bitmap RenderScene(Scene scene, ICamera camera)
         {
             var context = new SceneHandlerContext(scene, camera, canvas);
 
             renderHandler.Handle(context);
 
-            return canvas;
+            return canvas.GetSnapshot();
         }
     }
 }
