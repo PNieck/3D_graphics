@@ -68,6 +68,13 @@ namespace _3D_graphics
                     else
                         renderController.AddCarShaking();
                     break;
+
+                case Keys.P:
+                    sceneController.StartDay();
+                    break;
+                case Keys.O:
+                    sceneController.StartNight();
+                    break;
             }
 
             renderController.RenderScene();
